@@ -1,0 +1,21 @@
+<?php
+return array(
+    'phpSettings' => array(
+        'display_startup_errors' => 0,
+        'display_errors'         => 0,
+        'error_reporting'        => 0
+    ),
+    'resources'   => array(
+        'frontController' => array(
+            'throwExceptions' => false
+        ),
+        'db' => array(
+            'params'  => array(
+                'host'     => '##HOSTNAME##',
+                'username' => '##USERNAME##',
+                'password' => '##PASSWORD##',
+                'dbname'   => '##DATABASE##'
+            )
+        )
+    )
+);
