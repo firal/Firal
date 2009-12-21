@@ -97,7 +97,6 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
         return $this->_resource;
     }
 
-
     /**
      * Setup the ACL
      *
