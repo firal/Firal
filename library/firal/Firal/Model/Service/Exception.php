@@ -14,16 +14,20 @@
  *
  * @category   Firal
  * @package    Firal_Model
+ * @subpackage Service
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
+ * Interface for Exceptions
+ *
  * @category   Firal
  * @package    Firal_Model
+ * @subpackage Service
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_Model_OutOfBoundsException extends OutOfBoundsException implements Firal_Model_Exception
+interface Firal_Model_Service_Exception extends Firal_Model_Exception
 {
 }
