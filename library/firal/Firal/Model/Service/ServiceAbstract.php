@@ -66,6 +66,8 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
             if (null === ($this->_acl = self::getDefaultAcl())) {
                 throw new Firal_Model_Service_RuntimeException("No ACL and no default ACL defined.");
             }
+
+            $this->_setupAcl();
         }
 
         return $this->_acl;
@@ -84,6 +86,38 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
 
         return $this;
     }
+
+    /**
+     * Get the resource ID
+     *
+     * @return string
+     */
+    public function getResourceId()
+    {
+        return $this->_resource;
+    }
+
+
+    /**
+     * Setup the ACL
+     *
+     * @return void
+     */
+    protected function _setupAcl()
+    {
+        if (!$this->_acl->has($this)) {
+            $this->_acl->add($this);
+
+            $this->_setupPrivileges();
+        }
+    }
+
+    /**
+     * Setup privileges
+     *
+     * @return void
+     */
+    abstract protected function _setupPrivileges();
 
     // static functions
 
