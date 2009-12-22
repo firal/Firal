@@ -26,18 +26,5 @@
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
-{
-
-    /**
-     * Initialize database
-     *
-     * @return void
-     */
-    protected function _initDatabase()
-    {
-        $this->bootstrap('db');
-
-        Firal_Model_Mapper_MapperAbstract::setDefaultAdapter($this->getResource('db'));
-    }
-}
+class Default_Bootstrap extends Zend_Application_Module_Bootstrap
+{}

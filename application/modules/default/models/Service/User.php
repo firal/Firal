@@ -13,31 +13,31 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Bootstrap
+ * @package    Default_Models
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Bootstrap
+ * Index Controller
  *
  * @category   Firal
- * @package    Firal_Bootstrap
+ * @package    Default_Models
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
 {
 
     /**
-     * Initialize database
+     * Setup default privileges
+     *
+     * Empty for now, there should be some setup code later
      *
      * @return void
      */
-    protected function _initDatabase()
+    protected function _setupPrivileges()
     {
-        $this->bootstrap('db');
 
-        Firal_Model_Mapper_MapperAbstract::setDefaultAdapter($this->getResource('db'));
     }
 }

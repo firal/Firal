@@ -13,7 +13,7 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Controllers
+ * @package    Default_Controllers
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -22,7 +22,7 @@
  * Index Controller
  *
  * @category   Firal
- * @package    Firal_Controllers
+ * @package    Default_Controllers
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -35,5 +35,7 @@ class IndexController extends Zend_Controller_Action
      * @return void
      */
     public function indexAction()
-    {}
+    {
+        $userService = new Default_Model_Service_User(new Default_Model_Mapper_User());
+    }
 }

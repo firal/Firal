@@ -52,6 +52,25 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
      */
     protected $_resource = '';
 
+    /**
+     * Mapper
+     *
+     * @var Firal_Model_Mapper_MapperAbstract
+     */
+    protected $_mapper;
+
+
+    /**
+     * Constructor
+     *
+     * @param Firal_Model_Mapper_MapperAbstract $mapper
+     *
+     * @return void
+     */
+    public function __construct(Firal_Model_Mapper_MapperAbstract $mapper)
+    {
+        $this->_mapper = $mapper;
+    }
 
     /**
      * Get the ACL
