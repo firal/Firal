@@ -61,11 +61,9 @@ abstract class Firal_Model_Mapper_MapperAbstract
     final public function __construct(Zend_Db_Adapter_Abstract $adapter = null)
     {
         if (null === $adapter) {
-            $adapter = self::getDefaultAdapter();
-        }
-
-        if (null === $adapter) {
-            throw new Firal_Model_Mapper_RuntimeException('There was no adapter defined');
+            if (null === ($adapter = self::getDefaultAdapter())) {
+                throw new Firal_Model_Mapper_RuntimeException('There was no adapter defined');
+            }
         }
 
         $this->_adapter = $adapter;
