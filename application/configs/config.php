@@ -18,10 +18,7 @@ return array_merge_recursive(array(
             'layoutPath' => APPLICATION_PATH . '/layouts/scripts'
         ),
         'db' => array(
-            'adapter' => 'pdo_mysql',
-            'params'  => array(
-                'charset' => 'utf8'
-            )
+            'adapter' => 'pdo_mysql'
         )
     )
 ), include dirname(__FILE__) . '/' . APPLICATION_ENV . '.config.php');

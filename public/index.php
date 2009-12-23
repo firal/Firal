@@ -38,8 +38,8 @@ if (!defined('APPLICATION_ENV')) {
 
 // create our own include path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library/zend'),
-    realpath(APPLICATION_PATH . '/../library/firal'),
+    realpath(ROOT_PATH . '/library/zend'),
+    realpath(ROOT_PATH . '/library/firal'),
     '.'
     // get_include_path(), // only add this when there are things not working
 )));
