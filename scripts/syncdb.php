@@ -90,11 +90,16 @@ foreach ($directory as $file) {
 
 sort($revs, SORT_NUMERIC);
 
+echo "Firal database updater\n\n";
+
 // get the current revision
 
 $stmt = $db->query("SHOW TABLES LIKE 'x_current_revision'");
 
+echo "Checking if revision table exists: ";
+
 if (count($stmt->fetchAll()) == 0) {
+    echo "does not exist, creating....\n";
     // no such table, create it
     $sql = <<<DLLSTMT
 CREATE TABLE x_current_revision (
@@ -108,14 +113,19 @@ DLLSTMT;
     ));
     $revision = 0;
 } else {
+    echo "exists, get default value....\n";
     $sql      = "SELECT revision FROM x_current_revision LIMIT 1";
     $revision = (int) $db->query($sql)->fetchColumn(0);
 }
+
+echo "Current revision: " . $revision . "\n\n";
 
 // loop through the revisions and execute the queries
 try {
     foreach ($revs as $rev) {
         if ($rev > $revision) {
+            echo "Executing revision " . $rev . " ";
+
             $queries = file_get_contents(ROOT_PATH . '/data/db/' . $rev . '.sql');
             $queries = explode(';', $queries);
 
@@ -124,12 +134,15 @@ try {
                 // we don't execute queries with just whitespace
                 if (!empty($sql)) {
                     $db->query($sql);
+                    echo ".";
                 }
             }
+
+            echo "\n";
         }
     }
 } catch (Zend_Db_Statement_Exception $e) {
-    echo 'Incorrect query! In revision: ' . $rev . "\n";
+    echo "\nIncorrect query! In revision: " . $rev . "\n";
     echo "Error: \n\n";
 
     echo $e->getMessage();
@@ -144,5 +157,4 @@ $db->update('x_current_revision', array(
     'revision' => end($revs)
 ));
 
-
-echo "\n";
+echo "\nDatabase succesfully synced to revision " . end($revs) . "!\n";
