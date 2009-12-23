@@ -1,0 +1,2 @@
+ALTER TABLE users
+    ADD COLUMN password VARCHAR(100) NOT NULL AFTER name
