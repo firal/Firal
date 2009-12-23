@@ -19,7 +19,7 @@
  */
 
 /**
- * Index Controller
+ * User model service class
  *
  * @category   Firal
  * @package    Default_Models
@@ -40,4 +40,5 @@ class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
     {
 
     }
+
 }

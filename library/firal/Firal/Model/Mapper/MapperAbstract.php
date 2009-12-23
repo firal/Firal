@@ -45,6 +45,13 @@ abstract class Firal_Model_Mapper_MapperAbstract
      */
     protected static $_defaultAdapter;
 
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $_name;
+
 
     /**
      * Constructor
@@ -89,6 +96,15 @@ abstract class Firal_Model_Mapper_MapperAbstract
         return $this->_adapter;
     }
 
+    /**
+     * Get the table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->_name;
+    }
 
     // static functions
 

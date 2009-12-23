@@ -19,7 +19,7 @@
  */
 
 /**
- * Index Controller
+ * User model
  *
  * @category   Firal
  * @package    Default_Models
@@ -65,6 +65,31 @@ class Default_Model_User extends Firal_Model_ModelAbstract implements Zend_Acl_R
     protected $_role;
 
 
+    /**
+     * Constructor
+     *
+     * @param array $values
+     *
+     * @return void
+     */
+    public function __construct(array $values = array())
+    {
+        if (isset($values['id'])) {
+            $this->_id = $values['id'];
+        }
+        if (isset($values['name'])) {
+            $this->_name = $values['name'];
+        }
+        if (isset($values['password'])) {
+            $this->_password = $values['password'];
+        }
+        if (isset($values['email'])) {
+            $this->_email = $values['email'];
+        }
+        if (isset($values['role'])) {
+            $this->_role = $role;
+        }
+    }
     /**
      * Get the role id
      *
