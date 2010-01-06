@@ -87,7 +87,7 @@ class Default_Model_User extends Firal_Model_ModelAbstract implements Zend_Acl_R
             $this->_email = $values['email'];
         }
         if (isset($values['role'])) {
-            $this->_role = $role;
+            $this->_role = $values['role'];
         }
     }
     /**
@@ -132,6 +132,16 @@ class Default_Model_User extends Firal_Model_ModelAbstract implements Zend_Acl_R
         $this->_password = sha1($password);
 
         return $this;
+    }
+
+    /**
+     * Get the hashed password
+     *
+     * @return string
+     */
+    public function getPasswordHash()
+    {
+        return $this->_password;
     }
 
     /**

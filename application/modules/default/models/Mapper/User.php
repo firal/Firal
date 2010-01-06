@@ -45,6 +45,13 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     protected $_credentials;
 
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $_name = 'users';
+
 
     /**
      * Fetch a user by its id
@@ -95,12 +102,39 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
     }
 
     /**
+     * Set user credentials
+     *
+     * @param string $identity
+     * @param string $credentials
+     *
+     * @return Default_Model_Mapper_User
+     */
+    public function setCredentials($identity, $credentials)
+    {
+        $this->_identity    = $identity;
+        $this->_credentials = sha1($credentials);
+
+        return $this;
+    }
+
+    /**
      * Try to authenticate a user
      *
      * @return Zend_Auth_Result
      */
     public function authenticate()
     {
+        if (null === ($user = $this->fetchByName($this->_identity))) {
+            $code    = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
+            $message = 'Invalid identity';
+        } elseif ($user->passwordHash != $this->_credentials) {
+            $code    = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
+            $message = 'Invalid password';
+        } else {
+            $code    = Zend_Auth_Result::SUCCESS;
+            $message = 'Success';
+        }
 
+        return new Zend_Auth_Result($code, $this->_identity, array($message));
     }
 }

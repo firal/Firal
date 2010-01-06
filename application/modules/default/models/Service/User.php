@@ -29,6 +29,10 @@
 class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
 {
 
+    protected $_forms = array(
+        'login' => 'Default_Form_Login'
+    );
+
     /**
      * Setup default privileges
      *
@@ -39,6 +43,43 @@ class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
     protected function _setupPrivileges()
     {
 
+    }
+
+    /**
+     * Log the user in
+     *
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function login(array $data)
+    {
+        $form = $this->getForm('login');
+
+        if (!$form->isValid($data)) {
+            return false;
+        }
+
+        $this->_mapper->setCredentials($form->getValue('username'), $form->getValue('password'));
+
+        $auth = Zend_Auth::getInstance();
+
+        $result = $auth->authenticate($this->_mapper);
+
+        // invalid result
+        if (!$result->isValid()) {
+            switch ($result->getCode()) {
+                case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
+                    $form->getElement('username')->setErrors(array("There is no '{$form->getValue('username')}' user."));
+                    break;
+                case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
+                    $form->getElement('password')->setErrors(array("Wrong password."));
+                    break;
+            }
+            return false;
+        }
+
+        return true;
     }
 
 }

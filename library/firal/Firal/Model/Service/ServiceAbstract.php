@@ -59,6 +59,13 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
      */
     protected $_mapper;
 
+    /**
+     * Forms
+     *
+     * @var array
+     */
+    protected $_forms = array();
+
 
     /**
      * Constructor
@@ -128,6 +135,24 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
 
             $this->_setupPrivileges();
         }
+    }
+
+    /**
+     * Get a form
+     *
+     * @param string $name
+     *
+     * @return Zend_Form
+     */
+    public function getForm($name)
+    {
+        if (!isset($this->_forms[$name])) {
+            throw new Firal_Model_Service_RuntimeException("Form '$name' doesn't exist.");
+        }
+        if (is_string($this->_forms[$name])) {
+            $this->_forms[$name] = new $this->_forms[$name]();
+        }
+        return $this->_forms[$name];
     }
 
     /**
