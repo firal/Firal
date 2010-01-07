@@ -19,6 +19,17 @@ return array_merge_recursive(array(
         ),
         'db' => array(
             'adapter' => 'pdo_mysql'
+        ),
+        'cachemanager' => array(
+            'database' => array(
+                'frontend' => array(
+                    'name'    => 'Core',
+                    'options' => array(
+                        'automatic_serialization' => true
+                    )
+                ),
+                'backend'  => array()
+            )
         )
     )
 ), include dirname(__FILE__) . '/' . APPLICATION_ENV . '.config.php');

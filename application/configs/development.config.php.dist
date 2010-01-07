@@ -16,6 +16,16 @@ return array(
                 'password' => '##PASSWORD##',
                 'dbname'   => '##DATABASE##'
             )
+        ),
+        'cachemanager' => array(
+            'database' => array(
+                'frontend' => array(
+                    'options' => array(
+                        'caching' => false
+                    )
+                ),
+                'backend'  => array()
+            )
         )
     )
 );

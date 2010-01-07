@@ -16,6 +16,17 @@ return array(
                 'password' => '##PASSWORD##',
                 'dbname'   => '##DATABASE##'
             )
+        ),
+        'cachemanager' => array(
+            'database' => array(
+                'backend'  => array(
+                    'name'    => 'File',
+                    'options' => array(
+                        'cache_dir'        => ROOT_PATH . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'cache',
+                        'file_name_prefix' => 'firal_database'
+                    )
+                )
+            )
         )
     )
 );
