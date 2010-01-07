@@ -29,24 +29,46 @@
 class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
 {
 
+    /**
+     * Datamapper used for articles
+     *
+     * @var Default_Model_Mapper_UserInterface
+     */
+    protected $_mapper;
+
+    /**
+     * Forms
+     *
+     * @var array
+     */
     protected $_forms = array(
         'login' => 'Default_Form_Login'
     );
 
+
     /**
-     * Setup default privileges
+     * Constructor
      *
-     * Empty for now, there should be some setup code later
+     * @param Default_Model_Mapper_UserInterface $mapper
      *
      * @return void
      */
+    public function __construct(Default_Model_Mapper_UserInterface $mapper)
+    {
+        $this->_mapper = $mapper;
+    }
+
+    /**
+     * Setup default privileges ** Empty for now, there should be some setup code later
+     *
+     * @return void */
     protected function _setupPrivileges()
     {
 
     }
 
     /**
-     * Log the user in
+     *Log the user in
      *
      * @param array $data
      *
@@ -70,9 +92,7 @@ class Default_Model_Service_User extends Firal_Model_Service_ServiceAbstract
         if (!$result->isValid()) {
             switch ($result->getCode()) {
                 case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
-                    $form->getElement('username')->setErrors(array("There is no '{$form->getValue('username')}' user."));
-                    break;
-                case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
+                    $form->getElement('username')->setErrors(array("There is no '{$form->getValue('username')}' user."));       break;  case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
                     $form->getElement('password')->setErrors(array("Wrong password."));
                     break;
             }
