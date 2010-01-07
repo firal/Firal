@@ -27,6 +27,10 @@ if (!defined('APPLICATION_PATH')) {
     define('APPLICATION_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'application');
 }
 
+if (!defined('LIBRARY_PATH')) {
+    define('LIBRARY_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'library');
+}
+
 if (!defined('MODELS_PATH')) {
     define('MODELS_PATH', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'models');
 }
@@ -38,8 +42,8 @@ if (!defined('APPLICATION_ENV')) {
 
 // create our own include path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(ROOT_PATH . '/library/zend'),
-    realpath(ROOT_PATH . '/library/firal'),
+    realpath(LIBRARY_PATH . DIRECTORY_SEPARATOR . 'zend'),
+    realpath(LIBRARY_PATH . DIRECTORY_SEPARATOR . 'firal'),
     '.'
     // get_include_path(), // only add this when there are things not working
 )));
@@ -50,7 +54,7 @@ require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/config.php'
+    APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . 'config.php'
 );
 
 $application->bootstrap()
