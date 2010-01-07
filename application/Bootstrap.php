@@ -40,4 +40,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         Firal_Model_Mapper_MapperAbstract::setDefaultAdapter($this->getResource('db'));
     }
+
 }
