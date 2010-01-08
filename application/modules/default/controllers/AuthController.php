@@ -44,7 +44,10 @@ class AuthController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_userService = new Default_Model_Service_User(new Default_Model_Mapper_User());
+        $cache = $this->getInvokeArg('bootstrap')->getContainer()->offsetGet('cachemanager')->getCache('database');
+        $this->_userService = new Default_Model_Service_User(
+            new Default_Model_Mapper_UserCache(new Default_Model_Mapper_User(), $cache)
+        );
     }
 
     /**
@@ -74,4 +77,5 @@ class AuthController extends Zend_Controller_Action
             return $this->render('index');
         }
     }
+
 }

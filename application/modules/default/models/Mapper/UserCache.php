@@ -20,7 +20,7 @@
  */
 
 /**
- * User model mapper class
+ * User model mapper cache
  *
  * @category   Firal
  * @package    Default_Models
@@ -38,6 +38,13 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
      */
     protected $_mapper;
 
+    /**
+     * The cache instance
+     *
+     * @var Zend_Cache_Core
+     */
+    protected $_cache;
+
 
     /**
      * Constructor
@@ -46,9 +53,10 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
      *
      * @return void
      */
-    public function __construct(Default_Model_Mapper_UserInterface $mapper)
+    public function __construct(Default_Model_Mapper_UserInterface $mapper, Zend_Cache_Core $cache)
     {
         $this->_mapper = $mapper;
+        $this->_cache  = $cache;
     }
 
     /**
@@ -62,7 +70,13 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
      */
     public function fetchById($id)
     {
-        return $this->_mapper->fetchById($id);
+        $cache = $this->getCache();
+        if (!$user = $cache->load('user_id_' . $id)) {
+            $user = $this->_mapper->fetchById($id);
+
+            $cache->save($user, 'user_id_' . $id);
+        }
+        return $user;
     }
 
     /**
@@ -76,7 +90,13 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
      */
     public function fetchByName($name)
     {
-        return $this->_mapper->fetchByName($name);
+        $cache = $this->getCache();
+        if (!$user = $cache->load('user_name_' . $name)) {
+            $user = $this->_mapper->fetchByName($name);
+
+            $cache->save($user, 'user_name_' . $name);
+        }
+        return $user;
     }
 
     /**
@@ -100,6 +120,16 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
     public function authenticate()
     {
         return $this->_mapper->authenticate();
+    }
+
+    /**
+     * Get the cache
+     *
+     * @return Zend_Cache_Core
+     */
+    public function getCache()
+    {
+        return $this->_cache;
     }
 
 }
