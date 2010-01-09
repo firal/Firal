@@ -30,13 +30,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
     /**
-     * Initialize the session
+     * Initialize the autoloader for the default module
      *
      * @return void
      */
-    protected function _initSession()
+    protected function _initDefaultModuleAutoloader()
     {
+        $autoloader = new Zend_Application_Module_Autoloader(array(
+            'namespace' => 'Default',
+            'basePath'  => MODULE_PATH . DIRECTORY_SEPARATOR . 'default'
+        ));
+    }
+
+    /**
+     * Initialize Zend_Auth
+     *
+     * @return void
+     */
+    protected function _initAuth()
+    {
+        $this->bootstrap('defaultModuleAutoloader');
         Zend_Session::start();
+
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            $auth->getStorage()->write(new Default_Model_User(array(
+                'role' => 'guest'
+            )));
+        }
     }
 
     /**

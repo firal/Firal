@@ -31,8 +31,8 @@ if (!defined('LIBRARY_PATH')) {
     define('LIBRARY_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'library');
 }
 
-if (!defined('MODELS_PATH')) {
-    define('MODELS_PATH', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'models');
+if (!defined('MODULE_PATH')) {
+    define('MODULE_PATH', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules');
 }
 
 // Define application environment
