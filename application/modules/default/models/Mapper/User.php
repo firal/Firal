@@ -131,10 +131,16 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
             $code    = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
             $message = 'Invalid password';
         } else {
-            $code    = Zend_Auth_Result::SUCCESS;
-            $message = 'Success';
+            $code     = Zend_Auth_Result::SUCCESS;
+            $message  = 'Success';
+            $identity = $user;
+        }
+        if (!isset($identity)) {
+            $identity = new Default_Model_User(array(
+                'role' => 'guest'
+            ));
         }
 
-        return new Zend_Auth_Result($code, $this->_identity, array($message));
+        return new Zend_Auth_Result($code, $identity, array($message));
     }
 }

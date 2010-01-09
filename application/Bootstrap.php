@@ -30,6 +30,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
     /**
+     * Initialize the session
+     *
+     * @return void
+     */
+    protected function _initSession()
+    {
+        Zend_Session::start();
+    }
+
+    /**
      * Initialize database
      *
      * @return void

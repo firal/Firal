@@ -27,4 +27,21 @@
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 class Default_Bootstrap extends Zend_Application_Module_Bootstrap
-{}
+{
+
+    /**
+     * Initialize the authentication
+     *
+     * @return void
+     */
+    protected function _initAuth()
+    {
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            $auth->getStorage()->write(new Default_Model_User(array(
+                'role' => 'guest'
+            )));
+        }
+    }
+
+}
