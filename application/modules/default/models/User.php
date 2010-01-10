@@ -14,7 +14,7 @@
  *
  * @category   Firal
  * @package    Default_Models
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
@@ -23,7 +23,7 @@
  *
  * @category   Firal
  * @package    Default_Models
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 class Default_Model_User extends Firal_Model_ModelAbstract implements Zend_Acl_Role_Interface

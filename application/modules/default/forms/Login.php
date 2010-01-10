@@ -14,7 +14,7 @@
  *
  * @category   Firal
  * @package    Default_Forms
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
@@ -23,7 +23,7 @@
  *
  * @category   Firal
  * @package    Default_Forms
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 class Default_Form_Login extends Zend_Form

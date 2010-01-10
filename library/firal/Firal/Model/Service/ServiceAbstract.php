@@ -15,7 +15,7 @@
  * @category   Firal
  * @package    Firal_Model
  * @subpackage Service
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
@@ -25,7 +25,7 @@
  * @category   Firal
  * @package    Firal_Model
  * @subpackage Service
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_Interface

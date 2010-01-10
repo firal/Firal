@@ -15,7 +15,7 @@
  *
  * @category   Firal
  * @package    Firal_Bootstrap
- * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
