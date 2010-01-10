@@ -83,6 +83,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('defaultModuleAutoloader');
         $this->bootstrap('database');
+
+        $service = new Default_Model_Service_Config(new Default_Model_Mapper_Config());
+
+        return $service->getConfig();
     }
 
 }
