@@ -43,6 +43,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
+     * Initialize database
+     *
+     * @return void
+     */
+    protected function _initDatabase()
+    {
+        $this->bootstrap('db');
+
+        Firal_Model_Mapper_MapperAbstract::setDefaultAdapter($this->getResource('db'));
+    }
+
+    /**
      * Initialize Zend_Auth
      *
      * @return void
@@ -50,6 +62,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initAuth()
     {
         $this->bootstrap('defaultModuleAutoloader');
+        $this->bootstrap('database');
+
         Zend_Session::start();
 
         $auth = Zend_Auth::getInstance();
@@ -61,15 +75,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
-     * Initialize database
+     * Initalize config
      *
      * @return void
      */
-    protected function _initDatabase()
+    protected function _initConfig()
     {
-        $this->bootstrap('db');
-
-        Firal_Model_Mapper_MapperAbstract::setDefaultAdapter($this->getResource('db'));
+        $this->bootstrap('defaultModuleAutoloader');
+        $this->bootstrap('database');
     }
 
 }
