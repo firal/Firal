@@ -20,7 +20,7 @@
  */
 
 /**
- * Bootstrap
+ * View resource
  *
  * @category   Firal
  * @package    Firal_Application

@@ -30,12 +30,26 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
     /**
+     * Initialize the plugin loader
+     *
+     * @return void
+     */
+    protected function _initPluginLoader()
+    {
+        $this->getPluginLoader()->addPrefixPath(
+            'Firal_Application_Resource',
+            'Firal/Application/Resource/'
+        );
+    }
+
+    /**
      * Initialize the autoloader for the default module
      *
      * @return void
      */
     protected function _initDefaultModuleAutoloader()
     {
+        $this->bootstrap('pluginLoader');
         $autoloader = new Zend_Application_Module_Autoloader(array(
             'namespace' => 'Default',
             'basePath'  => MODULE_PATH . DIRECTORY_SEPARATOR . 'default'
@@ -87,6 +101,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $service = new Default_Model_Service_Config(new Default_Model_Mapper_Config());
 
         return $service->getConfig();
+    }
+
+    /**
+     * Initialize the theme
+     *
+     * @return void
+     */
+    protected function _initTheme()
+    {
+        $this->bootstrap('config');
+        $this->bootstrap('view');
+
+        $config       = $this->getResource('config');
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+
+        $viewRenderer->setTheme($config->theme);
+        $viewRenderer->setThemesDirectory(APPLICATION_PATH . DIRECTORY_SEPARATOR . 'themes');
     }
 
 }

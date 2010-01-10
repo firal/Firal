@@ -20,7 +20,7 @@
  */
 
 /**
- * Bootstrap
+ * ViewRenderer action helper
  *
  * @category   Firal
  * @package    Firal_Controller
@@ -36,21 +36,62 @@ class Firal_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action
      *
      * @var string
      */
-    protected $_theme = '';
+    protected $_theme;
+
+    /**
+     * Themes directory
+     *
+     * @var string
+     */
+    protected $_themesDirectory;
 
 
     /**
-     * Get the base path
+     * Render, and add the theme directory as base path
      *
-     *
+     * @return void
      */
-    protected function _getBasePath()
+    public function render($action = null, $name = null, $noController = null)
     {
-        $path = parent::_getBasePath();
+        $this->view->addBasePath($this->getThemeDirectory());
 
-        echo $path;
+        parent::render($action, $name, $noController);
+    }
 
-        return $path;
+    /**
+     * Get the theme directory
+     *
+     * @return string
+     */
+    public function getThemeDirectory()
+    {
+        return $this->_themesDirectory
+             . DIRECTORY_SEPARATOR . $this->_theme
+             . DIRECTORY_SEPARATOR . $this->getModule();
+    }
+
+    /**
+     * Get the themes directory
+     *
+     * @return string
+     */
+    public function getThemesDirectory()
+    {
+        return $this->_themesDirectory;
+    }
+
+    /**
+     * Set the themes directory
+     *
+     * @param string $themesDirectory
+     *
+     * @return Firal_Controller_Action_Helper_ViewRenderer
+     */
+    public function setThemesDirectory($themesDirectory)
+    {
+        $this->_themesDirectory = $themesDirectory;
+
+        return $this;
     }
 
     /**
