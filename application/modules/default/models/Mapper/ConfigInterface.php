@@ -13,31 +13,38 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Default_Models
+ * @subpackage Mapper
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Index Controller
+ * Config model mapper interface
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Default_Models
+ * @subpackage Mapper
  * @copyright  Copyright (c) 2009 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class IndexController extends Zend_Controller_Action
+interface Default_Model_Mapper_ConfigInterface
 {
 
-    /**
-     * Index page
-     *
-     * @return void
-     */
-    public function indexAction()
-    {
-        $userService = new Default_Model_Service_User(new Default_Model_Mapper_User());
 
-        $this->view->config = $this->getInvokeArg('bootstrap')->getResource('config');
-    }
+    /**
+     * Fetch all config directives
+     *
+     * @return Default_Model_User
+     */
+    public function fetchAll();
+
+    /**
+     * Fetch a user by its name
+     *
+     * @param string $name
+     *
+     * @return Default_Model_User
+     */
+    public function fetchByName($name);
 }
