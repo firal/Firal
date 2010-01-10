@@ -57,7 +57,7 @@ class Default_Model_Config extends Firal_Model_ModelAbstract
             $this->_name = $values['name'];
         }
         if (isset($values['value'])) {
-            $this->_id = $values['value'];
+            $this->_value = $values['value'];
         }
     }
 

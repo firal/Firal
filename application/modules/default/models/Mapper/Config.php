@@ -58,7 +58,7 @@ class Default_Model_Mapper_Config extends Firal_Model_Mapper_MapperAbstract impl
         $return = array();
 
         foreach ($rows as $row) {
-            $return[] = new Default_Model_User($row);
+            $return[] = new Default_Model_Config($row);
         }
 
         return $return;
@@ -85,7 +85,7 @@ class Default_Model_Mapper_Config extends Firal_Model_Mapper_MapperAbstract impl
             return null;
         }
 
-        return new Default_Model_User($row);
+        return new Default_Model_Config($row);
     }
 
 }
