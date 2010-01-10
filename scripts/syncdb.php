@@ -32,8 +32,8 @@ if (!defined('APPLICATION_PATH')) {
     define('APPLICATION_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'application');
 }
 
-if (!defined('MODELS_PATH')) {
-    define('MODELS_PATH', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'models');
+if (!defined('MODULE_PATH')) {
+    define('MODULE_PATH', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules');
 }
 
 // normally, this file is only runned from the development env, so leave that as default
