@@ -15,7 +15,7 @@
  * @category   Firal
  * @package    Firal_Controller
  * @subpackage Action_Helper
- * @copyright  Copyright (c) 2010 Firal (http://firal.org/)
+ * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
