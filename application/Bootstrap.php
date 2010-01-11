@@ -119,6 +119,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('config');
         $this->bootstrap('view');
 
+        // configure the view
+        $view = $this->getResource('view');
+
+        $view->doctype(Zend_View_Helper_Doctype::XHTML1_STRICT);
+
+        // configure the view renderer helper
         $config       = $this->getResource('config');
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
 
