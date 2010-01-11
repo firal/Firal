@@ -20,7 +20,7 @@
  */
 
 /**
- * ViewRenderer action helper
+ * Layout controller plugin
  *
  * @category   Firal
  * @package    Firal_Controller
@@ -36,22 +36,22 @@ class Firal_Controller_Plugin_Layout extends Zend_Layout_Controller_Plugin_Layou
      *
      * @var string
      */
-    protected $_theme;
+    protected $_theme = '';
 
     /**
      * Themes directory
      *
      * @var string
      */
-    protected $_themesDirectory;
+    protected $_themesDirectory = '';
 
 
     /**
-     * Render, and add the theme directory as base path
+     * postDispatch() plugin hook -- render layout
      *
      * @return void
      */
-    public function render($action = null, $name = null, $noController = null)
+    public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         $layout = $this->getLayout();
         $view   = $layout->getView();
@@ -68,7 +68,7 @@ class Firal_Controller_Plugin_Layout extends Zend_Layout_Controller_Plugin_Layou
 
         $layout->setLayoutPath($this->getThemeDirectory());
 
-        parent::render($action, $name, $noController);
+        parent::postDispatch($request);
     }
 
     /**
@@ -80,7 +80,8 @@ class Firal_Controller_Plugin_Layout extends Zend_Layout_Controller_Plugin_Layou
     {
         return $this->_themesDirectory
              . DIRECTORY_SEPARATOR . $this->_theme
-             . DIRECTORY_SEPARATOR . 'layouts';
+             . DIRECTORY_SEPARATOR . 'layouts'
+             . DIRECTORY_SEPARATOR . 'scripts';
     }
 
     /**

@@ -14,8 +14,9 @@ return array_merge_recursive(array(
         'modules' => array(),
         'view' => array(),
         'layout' => array(
-            'layout'     => 'layout',
-            'layoutPath' => APPLICATION_PATH . '/layouts/scripts'
+            'layout'      => 'layout',
+            'pluginClass' => 'Firal_Controller_Plugin_Layout',
+            'layoutPath'  => APPLICATION_PATH . '/layouts/scripts'
         ),
         'db' => array(
             'adapter' => 'pdo_mysql'
