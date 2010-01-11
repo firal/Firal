@@ -99,7 +99,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('database');
         $this->bootstrap('cachemanager');
 
-        $service = new Default_Model_Service_Config(
+        $service = new Default_Service_Config(
             new Default_Model_Mapper_ConfigCache(
                 new Default_Model_Mapper_Config(),
                 $this->getResource('cachemanager')->getCache('database')

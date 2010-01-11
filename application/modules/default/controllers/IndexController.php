@@ -36,7 +36,7 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $userService = new Default_Model_Service_User(new Default_Model_Mapper_User());
+        $userService = new Default_Service_User(new Default_Model_Mapper_User());
 
         $this->view->config = $this->getInvokeArg('bootstrap')->getResource('config');
     }

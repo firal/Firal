@@ -13,8 +13,7 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -23,11 +22,10 @@
  * Interface for Exceptions
  *
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Firal_Model_Service_Exception extends Firal_Model_Exception
+interface Firal_Service_Exception extends Firal_Exception
 {
 }
