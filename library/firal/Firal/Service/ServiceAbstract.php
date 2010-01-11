@@ -57,6 +57,13 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
      */
     protected $_forms = array();
 
+    /**
+     * The services
+     *
+     * @var array
+     */
+    protected static $_services = array();
+
 
     /**
      * Get the ACL
@@ -143,7 +150,6 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
      */
     abstract protected function _setupPrivileges();
 
-    // static functions
 
     /**
      * Set the default ACL
@@ -165,6 +171,37 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
     public static function getDefaultAcl()
     {
         return self::$_defaultAcl;
+    }
+
+
+    /**
+     * Get an attached service
+     *
+     * @param string $name
+     *
+     * @return Firal_Service_ServiceAbstract
+     *
+     * @throws Firal_Service_OutOfBoundsException When the service doesn't exist
+     */
+    public static function getService($name)
+    {
+        if (!isset(self::$_services[$name])) {
+            throw new Firal_Service_OutOfBoundsException("Service '$name' doesn't exist.");
+        }
+
+        return self::$_services[$name];
+    }
+
+    /**
+     * Attach a service
+     *
+     * @param Firal_Service_ServiceAbstract $name
+     *
+     * @return void
+     */
+    public static function attachService(Firal_Service_ServiceAbstract $service)
+    {
+        self::$_services[get_class($service)] = $service;
     }
 
 }
