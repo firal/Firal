@@ -51,13 +51,6 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
     protected $_resource = '';
 
     /**
-     * Forms
-     *
-     * @var array
-     */
-    protected $_forms = array();
-
-    /**
      * The services
      *
      * @var array
@@ -121,26 +114,6 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
 
             $this->_setupPrivileges();
         }
-    }
-
-    /**
-     * Get a form
-     *
-     * @param string $name
-     *
-     * @throws Firal_Service_RuntimeException if the form doesn't exist
-     *
-     * @return Zend_Form
-     */
-    public function getForm($name)
-    {
-        if (!isset($this->_forms[$name])) {
-            throw new Firal_Service_RuntimeException("Form '$name' doesn't exist.");
-        }
-        if (is_string($this->_forms[$name])) {
-            $this->_forms[$name] = new $this->_forms[$name]();
-        }
-        return $this->_forms[$name];
     }
 
     /**

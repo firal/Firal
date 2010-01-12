@@ -57,7 +57,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->form = $this->_userService->getForm('login')->setAction($this->getHelper('url')->direct('login'));
+        $this->view->form = $this->_userService->getLoginForm()->setAction($this->getHelper('url')->direct('login'));
     }
 
     /**
@@ -72,7 +72,7 @@ class AuthController extends Zend_Controller_Action
         }
 
         if (!$this->_userService->login($this->getRequest()->getPost())) {
-            $this->view->form = $this->_userService->getForm('login');
+            $this->view->form = $this->_userService->getLoginForm();
 
             return $this->render('index');
         }

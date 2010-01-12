@@ -37,13 +37,11 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     protected $_mapper;
 
     /**
-     * Forms
+     * Login form instance
      *
-     * @var array
+     * @var Default_Form_Login
      */
-    protected $_forms = array(
-        'login' => 'Default_Form_Login'
-    );
+    protected $_loginForm;
 
 
     /**
@@ -68,7 +66,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     }
 
     /**
-     *Log the user in
+     * Log the user in
      *
      * @param array $data
      *
@@ -76,7 +74,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
      */
     public function login(array $data)
     {
-        $form = $this->getForm('login');
+        $form = $this->getLoginForm();
 
         if (!$form->isValid($data)) {
             return false;
@@ -103,6 +101,20 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
         }
 
         return true;
+    }
+
+    /**
+     * Get the login form
+     *
+     * @return Default_Form_Login
+     */
+    public function getLoginForm()
+    {
+        if (null === $this->_loginForm) {
+            $this->_loginForm = new Default_Form_Login();
+        }
+
+        return $this->_loginForm;
     }
 
 }
