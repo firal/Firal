@@ -117,6 +117,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initTheme()
     {
         $this->bootstrap('config');
+        $this->bootstrap('frontcontroller');
+        $this->bootstrap('layout');
         $this->bootstrap('view');
 
         // configure the view
@@ -130,6 +132,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $viewRenderer->setTheme($config->theme);
         $viewRenderer->setThemesDirectory(APPLICATION_PATH . DIRECTORY_SEPARATOR . 'themes');
+
+        // setup the layout
+        $frontcontroller = $this->getResource('frontcontroller');
+        $layout          = Zend_Layout::getMvcInstance();
+        $plugin          = $frontcontroller->getPlugin($layout->getPluginClass());
+
+        $plugin->setTheme($config->theme);
+        $plugin->setThemesDirectory(APPLICATION_PATH . DIRECTORY_SEPARATOR . 'themes');
     }
 
 }
