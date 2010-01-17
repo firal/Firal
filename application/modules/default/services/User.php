@@ -39,7 +39,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     /**
      * Login form instance
      *
-     * @var Default_Form_Login
+     * @var Default_Form_UserLogin
      */
     protected $_loginForm;
 
@@ -111,7 +111,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     public function getLoginForm()
     {
         if (null === $this->_loginForm) {
-            $this->_loginForm = new Default_Form_Login();
+            $this->_loginForm = new Default_Form_UserLogin();
         }
 
         return $this->_loginForm;
