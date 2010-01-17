@@ -43,6 +43,13 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
      */
     protected $_loginForm;
 
+    /**
+     * Register form instance
+     *
+     * @var Default_Form_UserRegister
+     */
+    protected $_registerForm;
+
 
     /**
      * Constructor
@@ -104,6 +111,25 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     }
 
     /**
+     * Register a user
+     *
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function register(array $data)
+    {
+        $form = $this->getRegisterForm();
+
+        if (!$form->isValid($data)) {
+            return false;
+        }
+
+        // TODO: implement the insertion in the database
+        return false;
+    }
+
+    /**
      * Log the user out
      *
      * @return void
@@ -125,6 +151,20 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
         }
 
         return $this->_loginForm;
+    }
+
+    /**
+     * Get the register form
+     *
+     * @return Default_Form_UserRegister
+     */
+    public function getRegisterForm()
+    {
+        if (null === $this->_registerForm) {
+            $this->_registerForm = new Default_Form_UserRegister();
+        }
+
+        return $this->_registerForm;
     }
 
 }

@@ -73,4 +73,22 @@ class AuthController extends Zend_Controller_Action
         $userService->logout();
     }
 
+    /**
+     * Show the register form
+     *
+     * @return void
+     */
+    public function registerAction()
+    {
+        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+
+        if ($this->getRequest()->isPost()) {
+            if (!$userService->register($this->getRequest()->getPost())) {
+                $this->view->form = $userService->getRegisterForm();
+            }
+        } else {
+            $this->view->form = $userService->getRegisterForm();
+        }
+    }
+
 }
