@@ -57,6 +57,14 @@ class Default_Form_UserRegister extends Zend_Form
             'label'      => 'Password',
             'required'   => true
         ));
+        $this->addElement('password', 'password_copy', array(
+            'validators' => array(
+                array('StringLength', false, array(6, 30)),
+                new Firal_Validate_Identical(null, 'password')
+            ),
+            'label'      => 'Password (retype)',
+            'required'   => true
+        ));
         $this->addElement('submit', 'submit', array(
             'label'      => 'Register'
         ));
