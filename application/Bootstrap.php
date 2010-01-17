@@ -89,6 +89,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
+     * Initialize services
+     *
+     * @return void
+     */
+    protected function _initServices()
+    {
+        $this->bootstrap('defaultModuleAutoloader');
+        $this->bootstrap('database');
+        $this->bootstrap('cachemanager');
+
+        $config = new Default_Service_Config(
+            new Default_Model_Mapper_ConfigCache(
+                new Default_Model_Mapper_Config(),
+                $this->getResource('cachemanager')->getCache('database')
+            )
+        );
+
+        $user = new Default_Service_User(
+            new Default_Model_Mapper_UserCache(
+                new Default_Model_Mapper_User(),
+                $this->getResource('cachemanager')->getCache('database')
+            )
+        );
+
+        Firal_Service_ServiceAbstract::attachServices(array($config, $user));
+    }
+
+    /**
      * Initalize config
      *
      * @return void
@@ -97,14 +125,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('defaultModuleAutoloader');
         $this->bootstrap('database');
-        $this->bootstrap('cachemanager');
+        $this->bootstrap('services');
 
-        $service = new Default_Service_Config(
-            new Default_Model_Mapper_ConfigCache(
-                new Default_Model_Mapper_Config(),
-                $this->getResource('cachemanager')->getCache('database')
-            )
-        );
+        $service = Firal_Service_ServiceAbstract::getService('Default_Service_Config');
 
         return $service->getConfig();
     }

@@ -177,4 +177,18 @@ abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interf
         self::$_services[get_class($service)] = $service;
     }
 
+    /**
+     * Attach multiple services
+     *
+     * @param array $services
+     *
+     * @return void
+     */
+    public static function attachServices(array $services)
+    {
+        foreach ($services as $service) {
+            self::attachService($service);
+        }
+    }
+
 }
