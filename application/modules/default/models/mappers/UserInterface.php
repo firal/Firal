@@ -59,4 +59,23 @@ interface Default_Model_Mapper_UserInterface extends Zend_Auth_Adapter_Interface
      * @return Default_Model_Mapper_User
      */
     public function setCredentials($identity, $credentials);
+
+    /**
+     * Insert a new user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return void
+     */
+    public function insert(Default_Model_User $user);
+
+    /**
+     * Update a user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return void
+     */
+    public function update(Default_Model_User $user);
+
 }

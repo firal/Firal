@@ -123,6 +123,30 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
     }
 
     /**
+     * Insert a new user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return void
+     */
+    public function insert(Default_Model_User $user)
+    {
+        return $this->_mapper->insert($user);
+    }
+
+    /**
+     * Update a user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return void
+     */
+    public function update(Default_Model_User $user)
+    {
+        return $this->_mapper->insert($user);
+    }
+
+    /**
      * Get the cache
      *
      * @return Zend_Cache_Core

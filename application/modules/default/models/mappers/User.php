@@ -143,4 +143,47 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
 
         return new Zend_Auth_Result($code, $identity, array($message));
     }
+
+    /**
+     * Insert a new user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return int
+     */
+    public function insert(Default_Model_User $user)
+    {
+        $data = array(
+            'name'     => $user->getUsername(),
+            'password' => $user->getPasswordHash(),
+            'email'    => $user->getEmail(),
+            'role'     => $user->getRole()
+        );
+        $this->getAdapter()->insert($this->_name, $data);
+
+        return $this->getAdapter()->lastInsertId($this->_name, 'id');
+    }
+
+    /**
+     * Update a user
+     *
+     * @param Default_Model_User $user
+     *
+     * @return void
+     */
+    public function update(Default_Model_User $user)
+    {
+        $data = array(
+            'name'     => $user->getUsername(),
+            'password' => $user->getPasswordHash(),
+            'email'    => $user->getEmail(),
+            'role'     => $user->getRole()
+        );
+        return $this->getAdapter()->update(
+            $this->_name,
+            $data,
+            $this->getAdapter()->quoteInto('id=?', $user->getId())
+        );
+    }
+
 }
