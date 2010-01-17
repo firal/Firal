@@ -61,4 +61,16 @@ class AuthController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Logout page
+     *
+     * @return void
+     */
+    public function logoutAction()
+    {
+        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+
+        $userService->logout();
+    }
+
 }

@@ -104,6 +104,16 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
     }
 
     /**
+     * Log the user out
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        Zend_Auth::getInstance()->clearIdentity();
+    }
+
+    /**
      * Get the login form
      *
      * @return Default_Form_Login
