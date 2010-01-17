@@ -13,19 +13,17 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_Model_Service_RuntimeException extends RuntimeException implements Firal_Model_Service_Exception
+class Firal_Service_OutOfBoundsException extends OutOfBoundsException implements Firal_Service_Exception
 {
 }

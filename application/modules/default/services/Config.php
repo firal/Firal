@@ -13,20 +13,20 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Models
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Config model service class
+ * Config service class
  *
  * @category   Firal
- * @package    Default_Models
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Model_Service_Config extends Firal_Model_Service_ServiceAbstract
+class Default_Service_Config extends Firal_Service_ServiceAbstract
 {
 
     /**

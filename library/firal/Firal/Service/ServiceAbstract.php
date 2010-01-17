@@ -13,8 +13,7 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -23,12 +22,11 @@
  * Abstract model service
  *
  * @category   Firal
- * @package    Firal_Model
- * @subpackage Service
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_Interface
+abstract class Firal_Service_ServiceAbstract implements Zend_Acl_Resource_Interface
 {
 
     /**
@@ -53,17 +51,17 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
     protected $_resource = '';
 
     /**
-     * Forms
+     * The services
      *
      * @var array
      */
-    protected $_forms = array();
+    protected static $_services = array();
 
 
     /**
      * Get the ACL
      *
-     * @throws Firal_Model_Service_Exception when there is no ACL and no default ACL
+     * @throws Firal_Service_Exception when there is no ACL and no default ACL
      *
      * @return Zend_Acl
      */
@@ -71,7 +69,7 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
     {
         if (null === $this->_acl) {
             if (null === ($this->_acl = self::getDefaultAcl())) {
-                throw new Firal_Model_Service_RuntimeException("No ACL and no default ACL defined.");
+                throw new Firal_Service_RuntimeException("No ACL and no default ACL defined.");
             }
 
             $this->_setupAcl();
@@ -85,7 +83,7 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
      *
      * @param Zend_Acl $acl
      *
-     * @return Firal_Model_Service_ServiceAbstract
+     * @return Firal_Service_ServiceAbstract
      */
     public function setAcl(Zend_Acl $acl)
     {
@@ -119,31 +117,12 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
     }
 
     /**
-     * Get a form
-     *
-     * @param string $name
-     *
-     * @return Zend_Form
-     */
-    public function getForm($name)
-    {
-        if (!isset($this->_forms[$name])) {
-            throw new Firal_Model_Service_RuntimeException("Form '$name' doesn't exist.");
-        }
-        if (is_string($this->_forms[$name])) {
-            $this->_forms[$name] = new $this->_forms[$name]();
-        }
-        return $this->_forms[$name];
-    }
-
-    /**
      * Setup privileges
      *
      * @return void
      */
     abstract protected function _setupPrivileges();
 
-    // static functions
 
     /**
      * Set the default ACL
@@ -165,6 +144,37 @@ abstract class Firal_Model_Service_ServiceAbstract implements Zend_Acl_Resource_
     public static function getDefaultAcl()
     {
         return self::$_defaultAcl;
+    }
+
+
+    /**
+     * Get an attached service
+     *
+     * @param string $name
+     *
+     * @return Firal_Service_ServiceAbstract
+     *
+     * @throws Firal_Service_OutOfBoundsException When the service doesn't exist
+     */
+    public static function getService($name)
+    {
+        if (!isset(self::$_services[$name])) {
+            throw new Firal_Service_OutOfBoundsException("Service '$name' doesn't exist.");
+        }
+
+        return self::$_services[$name];
+    }
+
+    /**
+     * Attach a service
+     *
+     * @param Firal_Service_ServiceAbstract $name
+     *
+     * @return void
+     */
+    public static function attachService(Firal_Service_ServiceAbstract $service)
+    {
+        self::$_services[get_class($service)] = $service;
     }
 
 }
