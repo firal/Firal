@@ -121,6 +121,18 @@ class Default_Model_User extends Firal_Model_ModelAbstract implements Zend_Acl_R
     }
 
     /**
+     * Set the username
+     *
+     * @param string $username
+     *
+     * @return Default_Model_User
+     */
+    public function setUsername($username)
+    {
+        $this->_name = $username;
+    }
+
+    /**
      * Set the password
      *
      * @param string $password

@@ -125,8 +125,30 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
             return false;
         }
 
-        // TODO: implement the insertion in the database
-        return false;
+        // create a user object
+        $data = $form->getValues();
+
+        $user = new Default_Model_User();
+
+        $user->setUsername($data['username']);
+        $user->setPassword($data['password']);
+        $user->setEmail($data['email']);
+        $user->setRole('user');
+
+        // insert the user
+        try {
+            $this->_mapper->insert($user);
+        } catch (Zend_Db_Statement_Exception $e) {
+            if ($e->getCode() == '23000') {
+                $form->getElement('username')->setErrors(array("User with name '{$form->getValue('username')}' already exists."));
+                return false;
+            } else {
+                // rethrow the exception
+                throw new Zend_Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
+        return true;
     }
 
     /**
