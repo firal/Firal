@@ -4,6 +4,7 @@ Version 0.1.0-dev
 Created by Pieter Kokx
 
 * [Homepage][HOMEPAGE]
+* [Wiki][WIKI]
 * [Issue Tracker][ISSUETRACKER]
 
 Introduction
@@ -19,5 +20,6 @@ Bugs/Feature Requests
 ---------------------
 Please, report any bugs or feature requests in the [Issue Tracker][ISSUETRACKER].
 
-[HOMEPAGE]: http://github.com/kokx/Firal
+[HOMEPAGE]: http://firal.org/
+[WIKI]: http://wiki.firal.org/
 [ISSUETRACKER]: http://github.com/kokx/Firal/issues
