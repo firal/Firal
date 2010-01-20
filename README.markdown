@@ -20,6 +20,11 @@ Bugs/Feature Requests
 ---------------------
 Please, report any bugs or feature requests in the [Issue Tracker][ISSUETRACKER].
 
+IRC Channel
+-----------
+We also got our own IRC channel on freenode. Feel free to drop by in #firal on
+irc.freenode.net
+
 [HOMEPAGE]: http://firal.org/
 [WIKI]: http://wiki.firal.org/
 [ISSUETRACKER]: http://github.com/kokx/Firal/issues
