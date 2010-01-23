@@ -35,16 +35,16 @@ interface Default_Model_Mapper_ConfigInterface
     /**
      * Fetch all config directives
      *
-     * @return Default_Model_User
+     * @return array
      */
     public function fetchAll();
 
     /**
-     * Fetch a user by its name
+     * Fetch one config directive by its name
      *
      * @param string $name
      *
-     * @return Default_Model_User
+     * @return Default_Model_Config
      */
     public function fetchByName($name);
 }
