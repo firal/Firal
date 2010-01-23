@@ -27,4 +27,4 @@ irc.freenode.net
 
 [HOMEPAGE]: http://firal.org/
 [WIKI]: http://wiki.firal.org/
-[ISSUETRACKER]: http://github.com/kokx/Firal/issues
+[ISSUETRACKER]: http://issues.firal.org/
