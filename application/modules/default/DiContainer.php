@@ -31,6 +31,37 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
 {
 
     /**
+     * Get the user service
+     *
+     * @return Default_Service_User
+     */
+    public function getUserService()
+    {
+        if (!isset($this->_services['userService'])) {
+            $this->_services['userService'] = new Default_Service_User($this->getUserMapper());
+        }
+
+        return $this->_services['userService'];
+    }
+
+    /**
+     * Get the user mapper
+     *
+     * @return Default_Model_Mapper_UserInterface
+     */
+    public function getUserMapper()
+    {
+        if (!isset($this->_services['userMapper'])) {
+            $this->_services['userMapper'] = new Default_Model_Mapper_UserCache(
+                new Default_Model_Mapper_User(),
+                $this->_config['mapper']['cache']
+            );
+        }
+
+        return $this->_services['userMapper'];
+    }
+
+    /**
      * Get the config service
      *
      * @return Default_Service_Config

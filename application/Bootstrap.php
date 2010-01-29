@@ -88,26 +88,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
-    /**
-     * Initialize services
-     *
-     * @return void
-     */
-    protected function _initServices()
-    {
-        $this->bootstrap('defaultModuleAutoloader');
-        $this->bootstrap('database');
-        $this->bootstrap('cachemanager');
-
-        $user = new Default_Service_User(
-            new Default_Model_Mapper_UserCache(
-                new Default_Model_Mapper_User(),
-                $this->getResource('cachemanager')->getCache('database')
-            )
-        );
-
-        Firal_Service_ServiceAbstract::attachServices(array($user));
-    }
 
     /**
      * Initialize the DI container
