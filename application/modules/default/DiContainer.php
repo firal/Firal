@@ -37,11 +37,11 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
      */
     public function getUserService()
     {
-        if (!isset($this->_services['userService'])) {
-            $this->_services['userService'] = new Default_Service_User($this->getUserMapper());
+        if (!isset($this->_storage['userService'])) {
+            $this->_storage['userService'] = new Default_Service_User($this->getUserMapper());
         }
 
-        return $this->_services['userService'];
+        return $this->_storage['userService'];
     }
 
     /**
@@ -51,14 +51,14 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
      */
     public function getUserMapper()
     {
-        if (!isset($this->_services['userMapper'])) {
-            $this->_services['userMapper'] = new Default_Model_Mapper_UserCache(
+        if (!isset($this->_storage['userMapper'])) {
+            $this->_storage['userMapper'] = new Default_Model_Mapper_UserCache(
                 new Default_Model_Mapper_User(),
                 $this->_config['mapper']['cache']
             );
         }
 
-        return $this->_services['userMapper'];
+        return $this->_storage['userMapper'];
     }
 
     /**
@@ -68,11 +68,11 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
      */
     public function getConfigService()
     {
-        if (!isset($this->_services['configService'])) {
-            $this->_services['configService'] = new Default_Service_Config($this->getConfigMapper());
+        if (!isset($this->_storage['configService'])) {
+            $this->_storage['configService'] = new Default_Service_Config($this->getConfigMapper());
         }
 
-        return $this->_services['configService'];
+        return $this->_storage['configService'];
     }
 
     /**
@@ -82,14 +82,14 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
      */
     public function getConfigMapper()
     {
-        if (!isset($this->_services['configMapper'])) {
-            $this->_services['configMapper'] = new Default_Model_Mapper_ConfigCache(
+        if (!isset($this->_storage['configMapper'])) {
+            $this->_storage['configMapper'] = new Default_Model_Mapper_ConfigCache(
                 new Default_Model_Mapper_Config(),
                 $this->_config['mapper']['cache']
             );
         }
 
-        return $this->_services['configMapper'];
+        return $this->_storage['configMapper'];
     }
 
 }

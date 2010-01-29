@@ -33,11 +33,11 @@ abstract class Firal_Di_Container_ContainerAbstract
 {
 
     /**
-     * Container's services
+     * Container's storage
      *
      * @var array
      */
-    protected $_services;
+    protected $_storage;
 
     /**
      * The container's config
