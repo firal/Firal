@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<project name="Firal CMS" default="init" basedir="../">
+
+	<description>Firal Content Management System</description>
+	
+	<property file="build/config.properties" />
+
+	<target name="init">
+		<mkdir dir="${stage.dir}" />
+		<mkdir dir="${package.dir}" />
+		<copy todir="${stage.dir}">
+			<fileset dir="${basedir}">
+				<include name="**" />
+				<exclude name=".**" />
+				<exclude name=".**/" />
+				<exclude name="**/.git/" />
+				<exclude name="**/.gitignore" />
+				<exclude name="public/.htaccess" />
+				<exclude name="build/" />
+				<exclude name="data/cache/**" />
+			</fileset>
+		</copy>
+		<tar basedir="${stage.dir}" compression="gzip" tarfile="${package.dir}/firal-${firal.version}.tar.gz" />
+		
+	</target>
+</project>
