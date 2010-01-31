@@ -6,9 +6,10 @@
 	<property file="build/config.properties" />
 
 	<target name="init">
-		<mkdir dir="${stage.dir}" />
+		<mkdir dir="${stage.dir}/firal-${firal.version}" />
 		<mkdir dir="${package.dir}" />
-		<copy todir="${stage.dir}">
+		
+		<copy todir="${stage.dir}/firal-${firal.version}">
 			<fileset dir="${basedir}">
 				<include name="**" />
 				<exclude name=".**" />
