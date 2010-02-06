@@ -43,7 +43,7 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
     public function setUp()
     {
         $this->bootstrap = new Zend_Application(
-            'development',
+            APPLICATION_ENV,
             APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . 'config.php'
         );
         parent::setUp();
@@ -52,8 +52,13 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
     public function testLoginAction()
     {
         $this->dispatch('/auth');
+
+        $this->assertModule('default');
         $this->assertController('auth');
         $this->assertAction('index');
+
+        // check the page title
+        $this->assertQuery('head title', 'Firal CMS Development version');
     }
 }
 
