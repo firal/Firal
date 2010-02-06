@@ -22,7 +22,7 @@
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'modules_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Firal_AllTests::main');
 }
 
 /**
@@ -32,7 +32,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class modules_AllTests
+class Firal_AllTests
 {
     public static function main()
     {
@@ -48,12 +48,12 @@ class modules_AllTests
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - modules');
+        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Firal');
 
         return $suite;
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'modules_AllTests::main') {
-    modules_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Firal_AllTests::main') {
+    Firal_AllTests::main();
 }

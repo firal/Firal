@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /**
  * Firal
@@ -14,57 +13,49 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Modules_Default
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'TestHelper.php';
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Modules_Default_AllTests::main');
 }
 
-require_once 'Firal/AllTests.php';
-require_once 'Modules/AllTests.php';
+require_once 'Modules/Default/AuthControllerTest.php';
 
 /**
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Modules_Default
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class AllTests
+class Modules_Default_AllTests
 {
     public static function main()
     {
-        $parameters = array();
-
-        if (TESTS_GENERATE_REPORT && extension_loaded('xdebug')) {
-            $parameters['reportDirectory'] = TESTS_GENERATE_REPORT_TARGET;
-        }
-
-        PHPUnit_TextUI_TestRunner::run(self::suite(), $parameters);
+        PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
     /**
-     * Test suite
+     * Regular suite
      *
      * @return PHPUnit_Framework_TestSuite
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Firal CMS');
+        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Modules_Default');
 
-        $suite->addTest(Firal_AllTests::suite());
-        $suite->addTest(Modules_AllTests::suite());
+        $suite->addTestSuite('Modules_Default_AuthControllerTest');
 
         return $suite;
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
-    AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Modules_Default_AllTests::main') {
+    Modules_Default_AllTests::main();
 }
