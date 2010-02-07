@@ -88,32 +88,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
+
     /**
-     * Initialize services
+     * Initialize the DI container
      *
-     * @return void
+     * @return Default_DiContainer
      */
-    protected function _initServices()
+    protected function _initDiContainer()
     {
         $this->bootstrap('defaultModuleAutoloader');
         $this->bootstrap('database');
         $this->bootstrap('cachemanager');
 
-        $config = new Default_Service_Config(
-            new Default_Model_Mapper_ConfigCache(
-                new Default_Model_Mapper_Config(),
-                $this->getResource('cachemanager')->getCache('database')
-            )
-        );
+        require_once MODULE_PATH . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'DiContainer.php';
 
-        $user = new Default_Service_User(
-            new Default_Model_Mapper_UserCache(
-                new Default_Model_Mapper_User(),
-                $this->getResource('cachemanager')->getCache('database')
+        return new Default_DiContainer(array(
+            'mapper' => array(
+                'cache' => $this->getResource('cachemanager')->getCache('database')
             )
-        );
-
-        Firal_Service_ServiceAbstract::attachServices(array($config, $user));
+        ));
     }
 
     /**
@@ -125,9 +118,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('defaultModuleAutoloader');
         $this->bootstrap('database');
-        $this->bootstrap('services');
+        $this->bootstrap('diContainer');
 
-        $service = Firal_Service_ServiceAbstract::getService('Default_Service_Config');
+        $service = $this->getResource('diContainer')->getConfigService();
 
         return $service->getConfig();
     }

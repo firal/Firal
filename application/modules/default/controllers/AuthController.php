@@ -36,7 +36,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
 
         $this->view->form = $userService->getLoginForm()->setAction($this->getHelper('url')->direct('login'));
     }
@@ -48,7 +48,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
 
         if (!$this->getRequest()->isPost()) {
             return $this->getHelper('redirector')->direct('index');
@@ -68,7 +68,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function logoutAction()
     {
-        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
 
         $userService->logout();
     }
@@ -80,7 +80,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function registerAction()
     {
-        $userService = Firal_Service_ServiceAbstract::getService('Default_Service_User');
+        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
 
         if ($this->getRequest()->isPost()) {
             if (!$userService->register($this->getRequest()->getPost())) {
