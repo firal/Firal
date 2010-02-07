@@ -34,5 +34,10 @@
 		<tar basedir="${stage.dir}" compression="gzip" tarfile="${package.dir}/firal-${firal.version}.tar.gz" />
 	</target>
 	
-	<target name="build" depends="test,package" />
+    <target name="build" depends="test,package" />
+
+    <target name="clean">
+        <delete dir="${package.dir}" />
+        <delete dir="${stage.dir}" /> 
+    </target>
 </project>
