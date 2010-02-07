@@ -60,6 +60,36 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
         // check the page title
         $this->assertQuery('head title', 'Firal CMS Development version');
     }
+
+    public function testLoginFormFailNonExistingUser()
+    {
+        $request = $this->getRequest();
+
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username' => 'nonexisting',
+                    'password' => 'nonexisting'
+                ));
+        $this->dispatch('/auth/login');
+
+        // failed login, user does not exist
+        $this->assertQuery('form dd#username-element ul.errors li', 'There is no \'nonexisting\' user.');
+    }
+
+    public function testLoginFormFailWrongCredentials()
+    {
+        $request = $this->getRequest();
+
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username' => TESTS_LOGIN_USERNAME,
+                    'password' => 'nonexisting'
+                ));
+        $this->dispatch('/auth/login');
+
+        // failed login, wrong passwrd
+        $this->assertQuery('form dd#password-element ul.errors li', 'Wrong password.');
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'Modules_Default_AuthControllerTest::main') {

@@ -40,6 +40,10 @@ if (!defined('APPLICATION_ENV')) {
     define('APPLICATION_ENV', 'testing');
 }
 
+// testuser username and password
+define('TESTS_LOGIN_USERNAME', 'test');
+define('TESTS_LOGIN_PASSWORD', 'testing');
+
 /**
  * PHPUnit Code Coverage / Test Report
  */
