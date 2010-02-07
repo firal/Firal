@@ -7,8 +7,8 @@
 	
 	<target name="test">
         <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
-            <arg line="AllTests.php" />
             <arg line="--log-xml ${basedir}/build/logs/tests.xml" />
+            <arg line="AllTests.php" />
         </exec>
     </target>
 
