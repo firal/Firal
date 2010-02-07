@@ -90,6 +90,24 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
         // failed login, wrong passwrd
         $this->assertQuery('form dd#password-element ul.errors li', 'Wrong password.');
     }
+
+    public function testLoginForm()
+    {
+        // now test working login
+        $request = $this->getRequest();
+
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username' => TESTS_LOGIN_USERNAME,
+                    'password' => TESTS_LOGIN_PASSWORD
+                ));
+        $this->dispatch('/auth/login');
+
+        $identity = Zend_Auth::getInstance()->getIdentity();
+
+        $this->assertEquals(TESTS_LOGIN_USERNAME, $identity->username);
+        $this->assertEquals(sha1(TESTS_LOGIN_PASSWORD), $identity->passwordHash);
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'Modules_Default_AuthControllerTest::main') {
