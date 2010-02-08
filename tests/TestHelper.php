@@ -54,6 +54,7 @@ require_once 'Zend/Loader/Autoloader.php';
 $autoloader = Zend_Loader_Autoloader::getInstance();
 
 $autoloader->registerNamespace('PHPUnit_');
+$autoloader->registerNamespace('Firal_');
 
 /*
  * Load the user-defined test configuration file, if it exists; otherwise, load
