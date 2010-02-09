@@ -110,6 +110,35 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
         $this->assertEquals('foobar', $identity->username);
         $this->assertEquals(sha1('foobarbaz'), $identity->passwordHash);
     }
+
+    public function testRegistrationWorks()
+    {
+        $request = $this->getRequest();
+
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username'      => 'foobaz',
+                    'email'         => 'foo@barbaz.com',
+                    'password'      => 'foobazbar',
+                    'password_copy' => 'foobazbar'
+                ));
+        $this->dispatch('/auth/register');
+
+        // now test if we can login
+        $request = $this->getRequest();
+        
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username' => 'foobaz',
+                    'password' => 'foobazbar'
+                ));
+        $this->dispatch('/auth/login');
+
+        $identity = Zend_Auth::getInstance()->getIdentity();
+
+        $this->assertEquals('foobaz', $identity->username);
+        $this->assertEquals(sha1('foobazbar'), $identity->passwordHash);
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'Modules_Default_AuthControllerTest::main') {
