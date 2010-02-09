@@ -64,11 +64,28 @@ class Firal_Event_DispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->_dispatcher->subscribe('event', array($this, 'callback'));
 
+        $this->_dispatcher->trigger(new Firal_Event($this, 'event'));
+
+        $this->assertTrue($this->_triggered);
+    }
+
+    public function testUnsubscribeEvent()
+    {
+        $this->_dispatcher->trigger(new Firal_Event($this, 'event'));
+
         $this->assertFalse($this->_triggered);
+
+        $this->_dispatcher->subscribe('event', array($this, 'callback'));
 
         $this->_dispatcher->trigger(new Firal_Event($this, 'event'));
 
         $this->assertTrue($this->_triggered);
+
+        $this->_triggered = false;
+
+        $this->_dispatcher->unsubscribe('event', array($this, 'callback'));
+
+
     }
 }
 

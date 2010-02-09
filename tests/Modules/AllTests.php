@@ -56,6 +56,14 @@ class Modules_AllTests
 
         return $suite;
     }
+
+    public static function setUpDb(Zend_Db_Adapter_Abstract $db)
+    {
+        $db->delete('users');
+        $db->delete('config');
+
+        $db->insert('users', array('name' => 'foobar', 'password' => sha1('foobarbaz'), 'email' => 'test@example.com', 'role' => 'guest'));
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'Modules_AllTests::main') {

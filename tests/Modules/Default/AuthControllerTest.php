@@ -47,6 +47,8 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
             APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . 'config.php'
         );
         parent::setUp();
+
+        Modules_AllTests::setUpDb($this->bootstrap->getBootstrap()->getResource('db'));
     }
 
     public function testLoginAction()
@@ -82,7 +84,7 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
 
         $request->setMethod('POST')
                 ->setPost(array(
-                    'username' => TESTS_LOGIN_USERNAME,
+                    'username' => 'foobar',
                     'password' => 'nonexisting'
                 ));
         $this->dispatch('/auth/login');
@@ -98,15 +100,15 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
 
         $request->setMethod('POST')
                 ->setPost(array(
-                    'username' => TESTS_LOGIN_USERNAME,
-                    'password' => TESTS_LOGIN_PASSWORD
+                    'username' => 'foobar',
+                    'password' => 'foobarbaz'
                 ));
         $this->dispatch('/auth/login');
 
         $identity = Zend_Auth::getInstance()->getIdentity();
 
-        $this->assertEquals(TESTS_LOGIN_USERNAME, $identity->username);
-        $this->assertEquals(sha1(TESTS_LOGIN_PASSWORD), $identity->passwordHash);
+        $this->assertEquals('foobar', $identity->username);
+        $this->assertEquals(sha1('foobarbaz'), $identity->passwordHash);
     }
 }
 
