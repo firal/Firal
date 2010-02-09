@@ -13,28 +13,28 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Validate
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Firal_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Firal_Validate_AllTests::main');
 }
 
-require_once 'Firal/Event/AllTests.php';
+require_once 'Firal/Validate/IdenticalTest.php';
 
 /**
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Validate
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_AllTests
+class Firal_Validate_AllTests
 {
     public static function main()
     {
@@ -50,15 +50,14 @@ class Firal_AllTests
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Firal');
+        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Firal_Validate');
 
-        $suite->addTest(Firal_Event_AllTests::suite());
-        $suite->addTest(Firal_Validate_AllTests::suite());
+        $suite->addTestSuite('Firal_Validate_IdenticalTest');
 
         return $suite;
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'Firal_AllTests::main') {
-    Firal_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Firal_Validate_AllTests::main') {
+    Firal_Validate_AllTests::main();
 }

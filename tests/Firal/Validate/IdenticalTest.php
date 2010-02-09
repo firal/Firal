@@ -13,52 +13,47 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Validate
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Firal_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Firal_Validate_IdenticalTest::main');
 }
-
-require_once 'Firal/Event/AllTests.php';
 
 /**
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Validate
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_AllTests
+class Firal_Validate_IdenticalTest extends PHPUnit_Framework_TestCase
 {
+
+    protected $_form;
+    
     public static function main()
     {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        $suite  = new PHPUnit_Framework_TestSuite('Firal_Validate_IdenticalTest');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    /**
-     * Regular suite
-     *
-     * All tests except those that require output buffering.
-     *
-     * @return PHPUnit_Framework_TestSuite
-     */
-    public static function suite()
+    public function testIdenticalUsesField()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Firal');
+        $validator = new Firal_Validate_Identical();
 
-        $suite->addTest(Firal_Event_AllTests::suite());
-        $suite->addTest(Firal_Validate_AllTests::suite());
+        $validator->setField('test');
 
-        return $suite;
+        $this->assertTrue($validator->isValid('foo', array('test' => 'foo')));
+        $this->assertFalse($validator->isValid('foo', array('test' => 'bar')));
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'Firal_AllTests::main') {
-    Firal_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Firal_Validate_IdenticalTest::main') {
+    Firal_Validate_IdenticalTest::main();
 }
