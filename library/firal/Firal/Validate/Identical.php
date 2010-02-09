@@ -91,15 +91,8 @@ class Firal_Validate_Identical extends Zend_Validate_Identical
      */
     public function isValid($value, $context = null)
     {
-        if ((null === $this->_token) && (null !== $this->_field) && isset($context[$this->getField()])) {
+        if ((null !== $this->_field) && isset($context[$this->getField()])) {
             $this->setToken($context[$this->getField()]);
-            $this->_tokenString = str_repeat('*', strlen($this->_tokenString));
-
-            $return = parent::isValid($value, $context);
-
-            $this->setToken(null);
-
-            return $return;
         }
 
         return parent::isValid($value, $context);

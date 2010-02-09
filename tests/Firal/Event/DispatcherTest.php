@@ -56,7 +56,7 @@ class Firal_Event_DispatcherTest extends PHPUnit_Framework_TestCase
         $this->_triggered  = false;
     }
 
-    public function testTrigger()
+    public function testSubscribeAndTriggerEvent()
     {
         $this->_dispatcher->trigger(new Firal_Event($this, 'event'));
 
