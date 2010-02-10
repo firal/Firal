@@ -13,7 +13,7 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Plugin
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
@@ -22,44 +22,50 @@
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Firal_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Firal_PluginTest::main');
 }
-
-require_once 'Firal/Event/AllTests.php';
 
 /**
  * @category   Firal
- * @package    Firal
+ * @package    Firal_Plugin
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_AllTests
+class Firal_PluginTest extends PHPUnit_Framework_TestCase
 {
+
+    protected $_dispatcher;
+
+    public $triggered = false;
+
     public static function main()
     {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        $suite  = new PHPUnit_Framework_TestSuite('Firal_PluginTest');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    /**
-     * Regular suite
-     *
-     * All tests except those that require output buffering.
-     *
-     * @return PHPUnit_Framework_TestSuite
-     */
-    public static function suite()
+    public function setUp()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Firal CMS - Firal');
+        $this->_dispatcher = new Firal_Event_Dispatcher();
 
-        $suite->addTestSuite('Firal_PluginTest');
-        $suite->addTest(Firal_Event_AllTests::suite());
-        $suite->addTest(Firal_Validate_AllTests::suite());
+        Firal_Plugin::setDefaultDispatcher($this->_dispatcher);
 
-        return $suite;
+        $this->triggered = false;
+    }
+
+    public function testPlugin()
+    {
+        $plugin = new Firal_Plugin_MockPlugin();
+
+        $this->assertFalse($this->triggered);
+
+        $this->_dispatcher->trigger(new Firal_Event($this, 'test.plugin'));
+
+        $this->assertTrue($this->triggered);
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'Firal_AllTests::main') {
-    Firal_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Firal_PluginTest::main') {
+    Firal_PluginTest::main();
 }

@@ -59,7 +59,16 @@ abstract class Firal_Plugin
         } else {
             $this->setDispatcher(self::getDefaultDispatcher());
         }
+
+        $this->_init();
     }
+
+    /**
+     * Init hook
+     *
+     * @return void
+     */
+    abstract protected function _init();
 
     /**
      * Set the dispatcher
@@ -83,6 +92,19 @@ abstract class Firal_Plugin
     public function getDispatcher()
     {
         return $this->_dispatcher;
+    }
+
+    /**
+     * Subscribe to an event
+     *
+     * @param string $event
+     * @param string $method
+     *
+     * @return void
+     */
+    public function subscribe($event, $method)
+    {
+        $this->getDispatcher()->subscribe($event, array($this, $method));
     }
 
     /**
