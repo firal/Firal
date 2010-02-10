@@ -139,6 +139,22 @@ class Modules_Default_AuthControllerTest extends Zend_Test_PHPUnit_ControllerTes
         $this->assertEquals('foobaz', $identity->username);
         $this->assertEquals(sha1('foobazbar'), $identity->passwordHash);
     }
+
+    public function testRegistrationUserExists()
+    {
+        $request = $this->getRequest();
+
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'username'      => 'foobar',
+                    'email'         => 'foo@barbaz.com',
+                    'password'      => 'foobazbar',
+                    'password_copy' => 'foobazbar'
+                ));
+        $this->dispatch('/auth/register');
+
+        $this->assertQuery('form dd#username-element ul.errors li', "User with name 'foobar' already exists.");
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'Modules_Default_AuthControllerTest::main') {

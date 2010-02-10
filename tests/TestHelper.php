@@ -76,6 +76,7 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
      * files, even those that are not covered by a test yet, are processed.
      */
     PHPUnit_Util_Filter::addDirectoryToWhitelist($firalLibrary);
+    PHPUnit_Util_Filter::addDirectoryToWhitelist(APPLICATION_PATH);
 
     /*
      * Omit from code coverage reports the contents of the tests directory
