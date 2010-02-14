@@ -91,7 +91,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
 
         $auth = Zend_Auth::getInstance();
 
-        // TODO: dispatch the default.user.login event
+        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($form, 'default.user.login'));
 
         $result = $auth->authenticate($this->_mapper);
 
@@ -143,7 +143,7 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
         $user->setEmail($data['email']);
         $user->setRole('user');
 
-        // TODO: trigger the 'default.user.register' event
+        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($user, 'default.user.register'));
 
         // insert the new user
         $this->_mapper->insert($user);
