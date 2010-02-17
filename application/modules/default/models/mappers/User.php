@@ -102,6 +102,30 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
     }
 
     /**
+     * Check if a user exists by its name
+     *
+     * @param string $name
+     * 
+     * @return bool
+     */
+    public function hasUser($name)
+    {
+        $db = $this->getAdapter();
+
+        $sql = $db->select()
+                  ->from($this->getTableName(), 'name')
+                  ->where('name=?', $name);
+
+        $row = $db->fetchRow($sql);
+
+        if (false === $row) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Set user credentials
      *
      * @param string $identity

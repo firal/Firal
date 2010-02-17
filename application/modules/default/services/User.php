@@ -91,6 +91,8 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
 
         $auth = Zend_Auth::getInstance();
 
+        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($form, 'default.user.login'));
+
         $result = $auth->authenticate($this->_mapper);
 
         // invalid result
@@ -128,6 +130,12 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
         // create a user object
         $data = $form->getValues();
 
+        // check if the user exists
+        if ($this->_mapper->hasUser($data['username'])) {
+            $form->getElement('username')->setErrors(array("User with name '{$form->getValue('username')}' already exists."));
+            return false;
+        }
+
         $user = new Default_Model_User();
 
         $user->setUsername($data['username']);
@@ -135,18 +143,10 @@ class Default_Service_User extends Firal_Service_ServiceAbstract
         $user->setEmail($data['email']);
         $user->setRole('user');
 
-        // insert the user
-        try {
-            $this->_mapper->insert($user);
-        } catch (Zend_Db_Statement_Exception $e) {
-            if ($e->getCode() == '23000') {
-                $form->getElement('username')->setErrors(array("User with name '{$form->getValue('username')}' already exists."));
-                return false;
-            } else {
-                // rethrow the exception
-                throw new Zend_Exception($e->getMessage(), $e->getCode(), $e);
-            }
-        }
+        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($user, 'default.user.register'));
+
+        // insert the new user
+        $this->_mapper->insert($user);
 
         return true;
     }

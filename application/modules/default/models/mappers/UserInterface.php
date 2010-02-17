@@ -51,6 +51,15 @@ interface Default_Model_Mapper_UserInterface extends Zend_Auth_Adapter_Interface
     public function fetchByName($name);
 
     /**
+     * Check if a user exists by its name
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasUser($name);
+
+    /**
      * Set user credentials
      *
      * @param string $identity

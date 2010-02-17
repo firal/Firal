@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Firal CMS" default="build" basedir="../">
+
+	<description>Firal Content Management System</description>
+	
+	<property file="build/config.properties" />
+	
+	<target name="test">
+        <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+            <arg line="--log-xml ${basedir}/build/logs/tests.xml" />
+            <arg line="AllTests.php" />
+        </exec>
+    </target>
+
+	<target name="stage">
+		<mkdir dir="${stage.dir}/firal-${firal.version}" />
+		<mkdir dir="${package.dir}" />
+		
+		<copy todir="${stage.dir}/firal-${firal.version}">
+			<fileset dir="${basedir}">
+				<include name="**" />
+				<exclude name=".**" />
+				<exclude name=".**/" />
+				<exclude name="**/.git/" />
+				<exclude name="**/.gitignore" />
+				<exclude name="public/.htaccess" />
+				<exclude name="build/" />
+				<exclude name="data/cache/**" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="package" depends="stage">
+		<tar basedir="${stage.dir}" compression="gzip" tarfile="${package.dir}/firal-${firal.version}.tar.gz" />
+	</target>
+	
+    <target name="build" depends="test,package" />
+
+    <target name="clean">
+        <delete dir="${package.dir}" />
+        <delete dir="${stage.dir}" /> 
+    </target>
+</project>

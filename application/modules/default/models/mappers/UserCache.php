@@ -100,6 +100,18 @@ class Default_Model_Mapper_UserCache implements Default_Model_Mapper_UserInterfa
     }
 
     /**
+     * Check if a user exists by its name
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasUser($name)
+    {
+        return $this->_mapper->hasUser($name);
+    }
+
+    /**
      * Set user credentials
      *
      * @param string $identity

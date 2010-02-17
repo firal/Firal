@@ -31,6 +31,9 @@ return array_merge_recursive(array(
                 ),
                 'backend'  => array()
             )
+        ),
+        'plugin' => array(
+            'path' => APPLICATION_PATH . '/plugins'
         )
     )
 ), include dirname(__FILE__) . '/' . APPLICATION_ENV . '.config.php');
