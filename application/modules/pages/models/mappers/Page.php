@@ -20,7 +20,7 @@
  */
 
 /**
- * Page model mapper interface
+ * Page model mapper class
  *
  * @category   Firal
  * @package    Pages_Models
@@ -28,8 +28,15 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Pages_Model_Mapper_PageInterface
+class Pages_Model_Mapper_Page extends Firal_Model_Mapper_MapperAbstract implements Pages_Model_Mapper_PageInterface
 {
+
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $_name = 'pages';
 
 
     /**
@@ -39,7 +46,22 @@ interface Pages_Model_Mapper_PageInterface
      *
      * @return Pages_Model_Page
      */
-    public function fetchById($id);
+    public function fetchById($id)
+    {
+        $db = $this->getAdapter();
+
+        $sql = $db->select()
+                  ->from($this->getTableName())
+                  ->where('id=?', $id);
+
+        $row = $db->fetchRow($sql);
+
+        if (false === $row) {
+            return null;
+        }
+
+        return new Pages_Model_Page($row);
+    }
 
     /**
      * Fetch a page by its name
@@ -48,16 +70,33 @@ interface Pages_Model_Mapper_PageInterface
      *
      * @return Pages_Model_Page
      */
-    public function fetchByName($name);
+    public function fetchByName($name)
+    {
+        $db = $this->getAdapter();
+
+        $sql = $db->select()
+                  ->from($this->getTableName())
+                  ->where('name=?', $name);
+
+        $row = $db->fetchRow($sql);
+
+        if (false === $row) {
+            return null;
+        }
+
+        return new Pages_Model_Page($row);
+    }
 
     /**
      * Insert a new page
      *
      * @param Pages_Model_Page $page
      *
-     * @return void
+     * @return int
      */
-    public function insert(Pages_Model_Page $page);
+    public function insert(Pages_Model_Page $page)
+    {
+    }
 
     /**
      * Update a page
@@ -66,6 +105,8 @@ interface Pages_Model_Mapper_PageInterface
      *
      * @return void
      */
-    public function update(Pages_Model_Page $page);
+    public function update(Pages_Model_Page $page)
+    {
+    }
 
 }

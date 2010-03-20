@@ -60,4 +60,16 @@ class Pages_Service_User extends Firal_Service_ServiceAbstract
     {
 
     }
+
+    /**
+     * Get one page by its name
+     *
+     * @param string $name
+     *
+     * @return Pages_Model_Page
+     */
+    public function getPage($name)
+    {
+        return $this->_mapper->fetchByName($name);
+    }
 }
