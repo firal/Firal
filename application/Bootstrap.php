@@ -158,4 +158,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $plugin->setThemesDirectory(APPLICATION_PATH . DIRECTORY_SEPARATOR . 'themes');
     }
 
+    /**
+     * Override of run method to provide JSON server interface
+     *
+     * @return void
+     */
+    public function run()
+    {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+            // run Zend_Json_Server instead of the MVC stack
+        } else {
+            parent::run();
+        }
+    }
 }
