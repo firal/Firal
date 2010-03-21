@@ -179,7 +179,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             // run Zend_Json_Server instead of the MVC stack
             
             $request = new Zend_Controller_Request_Http();
-            $info = explode('/', trim($request->getPathInfo(), '/'));
+            $info    = explode('/', trim($request->getPathInfo(), '/'));
 
             $module  = $info[0];
             $service = $info[1];

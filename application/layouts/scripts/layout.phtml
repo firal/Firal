@@ -5,11 +5,14 @@
 <?= $this->headTitle('Firal CMS Development version') ?>
 <?= $this->headLink() ?>
 <?= $this->headStyle() ?>
-<?= $this->headScript()->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js'); ?>
+<?= $this->headScript()->prependFile($this->baseUrl() . '/js/json-rpc.js')
+                       ->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'); ?>
 </head>
 
 <body>
+
 <?= $this->layout()->content ?>
+<a href="#" id="haha">stufff</a>
 </body>
 
 </html>
