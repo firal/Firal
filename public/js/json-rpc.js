@@ -64,6 +64,9 @@ $.jsonRpc = function(options)
                 });
             }
         });
+        
+        // return the newly created object
+        return this;
     })(options);
 };
 
