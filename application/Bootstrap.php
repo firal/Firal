@@ -165,7 +165,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _loadService($module, $service)
     {
-        //
+        // we can only get the di container for the default module right now
+        if ($module == 'default') {
+            $service = 'get' . ucfirst(strtolower($service)) . 'Service';
+            $diContainer = $this->getResource('diContainer');
+
+            if (method_exists($diContainer, $service)) {
+                return $diContainer->$service();
+            }
+        }
     }
 
     /**
