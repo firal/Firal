@@ -13,10 +13,45 @@
  */
 (function($) {
 
+$.jsonEncode = function(input)
+{
+    // check if we are dealing with an object
+    if (typeof(input) == 'object') {
+        // ECMAScript isn't nice
+        if (!input) {
+            return 'null';
+        }
+        // arrays are a little bit different than objects
+        if (Object.prototype.toString.apply(input) == '[object Array]') {
+            var output = [];
+            $.each(input, function(key, value)
+            {
+                output.push($.jsonEncode(value));
+            });
+            return '[' + output.join(',') + ']';
+        } else {
+            var output = [];
+            $.each(input, function(key, value)
+            {
+                output.push('"' + key + '":' + $.jsonEncode(value));
+            });
+            return '{' + output.join(',') + '}';
+        }
+    } else {
+        return '"' + input + '"';
+    }
+};
+
 $.jsonRpc = function(options)
 {
     return new (function(options)
     {
+        var defaults = {
+            url: "/"
+        };
+
+        var options = $.extend(defaults, options);
+
         // self-reference for the returned object
         var self = this;
 
@@ -38,12 +73,23 @@ $.jsonRpc = function(options)
                 {
                     self[method] = function()
                     {
+                        // we want a parameter array, not an object
+                        var params = [];
+
+                        $.each(arguments, function(key, val)
+                        {
+                            params.push(val);
+                        });
+
+                        // the request data to send
                         var requestData = {
                             jsonrpc: '2.0',
-                            method: method,
-                            params: arguments,
-                            id: self.lastId
+                            method:  method,
+                            params:  params,
+                            id:      self.lastId
                         };
+
+
                         var reply = {};
 
                         // do the AJAX request
@@ -52,6 +98,7 @@ $.jsonRpc = function(options)
                             url:         options.url,
                             type:        'post',
                             dataType:    'json',
+                            data:        $.jsonEncode(requestData),
                             // this one should not be cached by the browser
                             cache:       false,
                             success: function(data)
@@ -64,10 +111,23 @@ $.jsonRpc = function(options)
                 });
             }
         });
-        
+
         // return the newly created object
         return this;
     })(options);
+};
+
+$.getService = function(module, service, options)
+{
+    var defaults = {
+        url: "/"
+    };
+
+    var options = $.extend(defaults, options);
+
+    options.url = options.url + "/" + module + "/" + service;
+
+    return $.jsonRpc(options);
 };
 
 })(jQuery);
