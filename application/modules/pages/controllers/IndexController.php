@@ -13,7 +13,7 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Pages_Controllers
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -22,11 +22,11 @@
  * Index Controller
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Pages_Controllers
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class IndexController extends Zend_Controller_Action
+class Pages_IndexController extends Zend_Controller_Action
 {
 
     /**
@@ -36,6 +36,5 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->config = $this->getInvokeArg('bootstrap')->getResource('config');
     }
 }

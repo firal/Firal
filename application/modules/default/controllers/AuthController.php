@@ -36,7 +36,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
+        $userService = Zend_Registry::get('Default_DiContainer')->getUserService();
 
         $this->view->form = $userService->getLoginForm()->setAction($this->getHelper('url')->direct('login'));
     }
@@ -48,7 +48,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
+        $userService = Zend_Registry::get('Default_DiContainer')->getUserService();
 
         if (!$this->getRequest()->isPost()) {
             return $this->getHelper('redirector')->direct('index');
@@ -68,7 +68,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function logoutAction()
     {
-        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
+        $userService = Zend_Registry::get('Default_DiContainer')->getUserService();
 
         $userService->logout();
     }
@@ -80,7 +80,7 @@ class AuthController extends Zend_Controller_Action
      */
     public function registerAction()
     {
-        $userService = $this->getInvokeArg('bootstrap')->getResource('diContainer')->getUserService();
+        $userService = Zend_Registry::get('Default_DiContainer')->getUserService();
 
         if ($this->getRequest()->isPost()) {
             if (!$userService->register($this->getRequest()->getPost())) {

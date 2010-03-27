@@ -99,14 +99,32 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('defaultModuleAutoloader');
         $this->bootstrap('database');
         $this->bootstrap('cachemanager');
+        $this->bootstrap('modules');
 
-        require_once MODULE_PATH . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'DiContainer.php';
+        $front = $this->getResource('frontcontroller');
 
-        return new Default_DiContainer(array(
-            'mapper' => array(
-                'cache' => $this->getResource('cachemanager')->getCache('database')
-            )
-        ));
+        $modules = $front->getControllerDirectory();
+
+        foreach ($modules as $module => $dir) {
+            $module = $this->_formatModuleName($module);
+            $class  = $module . '_DiContainer';
+
+            if (!class_exists($class, false)) {
+                $file = dirname($dir) . '/DiContainer.php';
+
+                if (file_exists($file)) {
+                    require_once $file;
+                } else {
+                    continue;
+                }
+            }
+
+            Zend_Registry::set($class, new $class(array(
+                'mapper' => array(
+                    'cache' => $this->getResource('cachemanager')->getCache('database')
+                )
+            )));
+        }
     }
 
     /**
@@ -120,7 +138,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('database');
         $this->bootstrap('diContainer');
 
-        $service = $this->getResource('diContainer')->getConfigService();
+        $service = Zend_Registry::get('Default_DiContainer')->getConfigService();
 
         return $service->getConfig();
     }
@@ -214,5 +232,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         } else {
             parent::run();
         }
+    }
+
+    /**
+     * Format a module name to the module class prefix
+     *
+     * @param  string $name
+     * @return string
+     */
+    protected function _formatModuleName($name)
+    {
+        $name = strtolower($name);
+        $name = str_replace(array('-', '.'), ' ', $name);
+        $name = ucwords($name);
+        $name = str_replace(' ', '', $name);
+        return $name;
     }
 }

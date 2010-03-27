@@ -13,29 +13,48 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Firal_Di
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
+
 /**
- * Index Controller
+ * Dependency Injection container for the Pages module
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Firal_Di
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class IndexController extends Zend_Controller_Action
+class Pages_DiContainer extends Firal_Di_Container_ContainerAbstract
 {
 
     /**
-     * Index page
+     * Get the page service
      *
-     * @return void
+     * @return Pages_Service_Page
      */
-    public function indexAction()
+    public function getPageService()
     {
-        $this->view->config = $this->getInvokeArg('bootstrap')->getResource('config');
+        if (!isset($this->_storage['pageService'])) {
+            $this->_storage['pageService'] = new Pages_Service_Page($this->getPageMapper());
+        }
+
+        return $this->_storage['pageService'];
+    }
+
+    /**
+     * Get the page mapper
+     *
+     * @return Default_Model_Mapper_PageInterface
+     */
+    public function getPageMapper()
+    {
+        if (!isset($this->_storage['pageMapper'])) {
+            $this->_storage['pageMapper'] = new Default_Model_Mapper_Page();
+        }
+
+        return $this->_storage['pageMapper'];
     }
 }
