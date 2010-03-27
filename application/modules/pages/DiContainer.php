@@ -30,4 +30,31 @@
 class Pages_DiContainer extends Firal_Di_Container_ContainerAbstract
 {
 
+    /**
+     * Get the page service
+     *
+     * @return Pages_Service_Page
+     */
+    public function getPageService()
+    {
+        if (!isset($this->_storage['pageService'])) {
+            $this->_storage['pageService'] = new Pages_Service_Page($this->getPageMapper());
+        }
+
+        return $this->_storage['pageService'];
+    }
+
+    /**
+     * Get the page mapper
+     *
+     * @return Default_Model_Mapper_PageInterface
+     */
+    public function getPageMapper()
+    {
+        if (!isset($this->_storage['pageMapper'])) {
+            $this->_storage['pageMapper'] = new Default_Model_Mapper_Page();
+        }
+
+        return $this->_storage['pageMapper'];
+    }
 }

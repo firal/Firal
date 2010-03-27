@@ -19,14 +19,14 @@
  */
 
 /**
- * User service class
+ * Page service class
  *
  * @category   Firal
  * @package    Pages_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_User extends Firal_Service_ServiceAbstract
+class Pages_Service_Page extends Firal_Service_ServiceAbstract
 {
 
     /**

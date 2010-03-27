@@ -91,5 +91,4 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
 
         return $this->_storage['configMapper'];
     }
-
 }
