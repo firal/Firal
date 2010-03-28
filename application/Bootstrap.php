@@ -188,11 +188,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $diContainer = Zend_Registry::get($module . '_DiContainer');
 
+        $method = 'get' . $service . 'JsonService';
+
+        if (method_exists($diContainer, $method)) {
+            return $diContainer->$method();
+        }
+
         $method = 'get' . $service . 'Service';
 
         if (method_exists($diContainer, $method)) {
             return $diContainer->$method();
         }
+
         return false;
     }
 
