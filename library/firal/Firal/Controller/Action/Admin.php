@@ -13,18 +13,21 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Firal_Bootstrap
+ * @package    Firal_Controller
+ * @subpackage Action
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Bootstrap
+ * Basic admin action controller
  *
  * @category   Firal
- * @package    Firal_Bootstrap
- * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
+ * @package    Firal_Controller
+ * @subpackage Action
+ * @copyright  Copyright (c) 2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Admin_Bootstrap extends Zend_Application_Module_Bootstrap
-{}
+abstract class Firal_Controller_Action_Admin extends Zend_Controller_Action
+{
+}

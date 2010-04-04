@@ -13,29 +13,18 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Firal_Bootstrap
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Index Controller
+ * Bootstrap
  *
  * @category   Firal
- * @package    Default_Controllers
+ * @package    Firal_Bootstrap
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class IndexController extends Zend_Controller_Action
-{
-
-    /**
-     * Index page
-     *
-     * @return void
-     */
-    public function indexAction()
-    {
-        $this->view->config = $this->getInvokeArg('bootstrap')->getResource('config');
-    }
-}
+class Pages_Bootstrap extends Zend_Application_Module_Bootstrap
+{}
