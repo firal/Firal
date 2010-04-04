@@ -177,6 +177,73 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
+     * Load the service with the help of the module's di container
+     *
+     * @return Firal_Service_ServiceAbstract
+     */
+    protected function _loadService($module, $service)
+    {
+        $module  = $this->_formatModuleName($module);
+        $service = $this->_formatModuleName($service);
+
+        $diContainer = Zend_Registry::get($module . '_DiContainer');
+
+        $method = 'get' . $service . 'JsonService';
+
+        if (method_exists($diContainer, $method)) {
+            return $diContainer->$method();
+        }
+
+        $method = 'get' . $service . 'Service';
+
+        if (method_exists($diContainer, $method)) {
+            return $diContainer->$method();
+        }
+
+        return false;
+    }
+
+    /**
+     * Override of run method to provide JSON server interface
+     *
+     * @return void
+     */
+    public function run()
+    {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+            // run Zend_Json_Server instead of the MVC stack
+            
+            $request = new Zend_Controller_Request_Http();
+            $info    = explode('/', trim($request->getPathInfo(), '/'));
+
+            $module  = $info[0];
+            $service = $info[1];
+
+            // attach the service to the JSON-RPC server
+            $service = $this->_loadService($module, $service);
+
+            $server = new Zend_Json_Server();
+
+            $server->setClass($service);
+
+            if ('GET' == $_SERVER['REQUEST_METHOD']) {
+                // return the service map
+                $server->setEnvelope(Zend_Json_Server_Smd::ENV_JSONRPC_2);
+
+                $smd = $server->getServiceMap();
+
+                header('Content-Type: application/json');
+
+                echo $smd;
+                return;
+            }
+            $server->handle();
+        } else {
+            parent::run();
+        }
+    }
+
+    /**
      * Format a module name to the module class prefix
      *
      * @param  string $name

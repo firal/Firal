@@ -13,63 +13,51 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Page service class
+ * Config service JSON decorator
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page extends Firal_Service_ServiceAbstract implements Pages_Service_PageInterface
+class Default_Service_ConfigJson implements Default_Service_ConfigInterface
 {
 
     /**
-     * Datamapper used for articles
+     * The decorated service
      *
-     * @var Pages_Model_Mapper_PageInterface
+     * @var Default_Service_ConfigInterface
      */
-    protected $_mapper;
+    protected $_service;
 
-    
+
     /**
      * Constructor
      *
-     * @param Pages_Model_Mapper_PageInterface $mapper
+     * @param Default_Service_ConfigInterface $service
      *
      * @return void
      */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
+    public function __construct(Default_Service_ConfigInterface $service)
     {
-        $this->_mapper = $mapper;
+        $this->_service = $service;
     }
 
     /**
-     * Setup default privileges
+     * Get the configuration
      *
-     * Empty for now, there should be some setup code later
+     * An array is returned to maintain a higher level of ompatability with JSON
      *
-     * @return void 
+     * @return array
      */
-    protected function _setupPrivileges()
+    public function getConfig()
     {
-
-    }
-
-    /**
-     * Get one page by its name
-     *
-     * @param string $name
-     *
-     * @return Pages_Model_Page
-     */
-    public function getPage($name)
-    {
-        return $this->_mapper->fetchByName($name);
+        return $this->_service->getConfig()->toArray();
     }
 }

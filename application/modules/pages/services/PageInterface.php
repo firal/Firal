@@ -19,47 +19,15 @@
  */
 
 /**
- * Page service class
+ * Page service interface
  *
  * @category   Firal
  * @package    Pages_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page extends Firal_Service_ServiceAbstract implements Pages_Service_PageInterface
+interface Pages_Service_PageInterface
 {
-
-    /**
-     * Datamapper used for articles
-     *
-     * @var Pages_Model_Mapper_PageInterface
-     */
-    protected $_mapper;
-
-    
-    /**
-     * Constructor
-     *
-     * @param Pages_Model_Mapper_PageInterface $mapper
-     *
-     * @return void
-     */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
-    {
-        $this->_mapper = $mapper;
-    }
-
-    /**
-     * Setup default privileges
-     *
-     * Empty for now, there should be some setup code later
-     *
-     * @return void 
-     */
-    protected function _setupPrivileges()
-    {
-
-    }
 
     /**
      * Get one page by its name
@@ -68,8 +36,5 @@ class Pages_Service_Page extends Firal_Service_ServiceAbstract implements Pages_
      *
      * @return Pages_Model_Page
      */
-    public function getPage($name)
-    {
-        return $this->_mapper->fetchByName($name);
-    }
+    public function getPage($name);
 }

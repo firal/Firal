@@ -13,63 +13,58 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Page service class
+ * Config service interface
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page extends Firal_Service_ServiceAbstract implements Pages_Service_PageInterface
+interface Default_Service_UserInterface
 {
 
     /**
-     * Datamapper used for articles
+     * Log the user in
      *
-     * @var Pages_Model_Mapper_PageInterface
+     * @param array $data
+     *
+     * @return bool
      */
-    protected $_mapper;
+    public function login(array $data);
 
-    
     /**
-     * Constructor
+     * Register a user
      *
-     * @param Pages_Model_Mapper_PageInterface $mapper
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function register(array $data);
+
+    /**
+     * Log the user out
      *
      * @return void
      */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
-    {
-        $this->_mapper = $mapper;
-    }
+    public function logout();
 
     /**
-     * Setup default privileges
+     * Get the login form
      *
-     * Empty for now, there should be some setup code later
-     *
-     * @return void 
+     * @return Default_Form_Login
      */
-    protected function _setupPrivileges()
-    {
-
-    }
+    public function getLoginForm();
 
     /**
-     * Get one page by its name
+     * Get the register form
      *
-     * @param string $name
-     *
-     * @return Pages_Model_Page
+     * @return Default_Form_UserRegister
      */
-    public function getPage($name)
-    {
-        return $this->_mapper->fetchByName($name);
-    }
+    public function getRegisterForm();
 }
