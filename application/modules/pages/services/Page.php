@@ -26,7 +26,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page extends Firal_Service_ServiceAbstract implements Pages_Service_PageInterface
+class Pages_Service_Page implements Pages_Service_PageInterface
 {
 
     /**
