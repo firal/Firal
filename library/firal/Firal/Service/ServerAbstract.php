@@ -19,43 +19,13 @@
  */
 
 /**
- * Abstract client service
+ * Abstract server service
  *
  * @category   Firal
  * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-abstract class Firal_Service_ClientAbstract
+abstract class Firal_Service_ServerAbstract
 {
-
-    /**
-     * The client object
-     *
-     * @var Firal_Service_Client_ClientInterface
-     */
-    protected $_client;
-
-
-    /**
-     * Constructor
-     *
-     * @param Firal_Service_Client_ClientInterface $client
-     *
-     * @return void
-     */
-    public function __construct(Firal_Service_Client_ClientInterface $client)
-    {
-        $this->_client = $client;
-    }
-
-    /**
-     * Get the client object
-     *
-     * @return Firal_Service_Client_ClientInterface
-     */
-    public function getClient()
-    {
-        return $this->_client;
-    }
 }
