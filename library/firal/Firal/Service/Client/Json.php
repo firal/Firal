@@ -28,8 +28,24 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Firal_Service_Client_ClientInterface
+class Firal_Service_Client_Json implements Firal_Service_Client_ClientInterface
 {
+
+    /**
+     * The API url
+     *
+     * @var string
+     */
+    protected $_url;
+
+    /**
+     * Service map
+     *
+     * @var unkown
+     * @todo determine the type of this variable
+     */
+    protected $_serviceMap;
+
 
     /**
      * Constructor
@@ -38,7 +54,10 @@ interface Firal_Service_Client_ClientInterface
      *
      * @return void
      */
-    public function __construct($url);
+    public function __construct($url)
+    {
+        $this->_url = $url;
+    }
 
     /**
      * Magic call method must be enforced by this interface
@@ -48,5 +67,7 @@ interface Firal_Service_Client_ClientInterface
      *
      * @return mixed
      */
-    public function __call($name, array $arguments);
+    public function __call($name, array $arguments)
+    {
+    }
 }
