@@ -20,7 +20,7 @@
  */
 
 /**
- * Abstract client service
+ * Client namespace wrapper
  *
  * @category   Firal
  * @package    Firal_Service
@@ -28,17 +28,37 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Firal_Service_Client_ClientInterface
+class Firal_Service_Client_Namespace
 {
+
+    /**
+     * The client
+     *
+     * @var Firal_Service_Client_ClientInterface
+     */
+    protected $_client;
+
+    /**
+     * The namespace
+     *
+     * @var string
+     */
+    protected $_namespace;
+
 
     /**
      * Constructor
      *
-     * @param string $url
+     * @param Firal_Service_Client_ClientInterface $client
+     * @param string $namespace
      *
      * @return void
      */
-    public function __construct($url);
+    public function __construct(Firal_Service_Client_ClientInterface $client, $namespace)
+    {
+        $this->_client    = $client;
+        $this->_namespace = $namespace;
+    }
 
     /**
      * Magic call method to call an RPC method
@@ -48,28 +68,20 @@ interface Firal_Service_Client_ClientInterface
      *
      * @return mixed
      */
-    public function __call($name, array $arguments);
+    public function __call($name, array $arguments)
+    {
+        return $this->_client->call($this->_namespace . '.' . $name, $arguments);
+    }
 
     /**
-     * Magic get method to get a namespace
+     * Magic get method to get a deeper namespace
      *
      * @param string $name
-     *
-     * @return Firal_Service_Client_Namespace
-     */
-    public function __get($name);
-
-    /**
-     * Call method
-     *
-     * This method's name argument must be a string like:
-     *
-     * <namespace>.<namespace>.<method>
-     *
-     * @param string $name
-     * @param array $arguments
      *
      * @return mixed
      */
-    public function call($name, array $arguments);
+    public function __get($name)
+    {
+        return new self($this->_client, $this->_namespace . '.' . $name);
+    }
 }
