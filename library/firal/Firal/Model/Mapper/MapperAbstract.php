@@ -32,11 +32,18 @@ abstract class Firal_Model_Mapper_MapperAbstract
 {
 
     /**
-     * Database adapter
+     * Database adapter for read queries
      *
      * @var Zend_Db_Adapter_Abstract
      */
-    protected $_adapter;
+    protected $_readAdapter;
+
+    /**
+     * Database adapter for write queries
+     *
+     * @var Zend_Db_Adapter_Abstract
+     */
+    protected $_writeAdapter;
 
     /**
      * Default database adapter
@@ -59,21 +66,27 @@ abstract class Firal_Model_Mapper_MapperAbstract
      * This method is final, because it should not be used to initialize, use
      * {@link _init()} instead
      *
-     * @param Zend_Db_Adapter_Abstract $adapter
+     * @param Zend_Db_Adapter_Abstract $readAdapter
+     * @param Zend_Db_Adapter_Abstract $writeAdapter
      *
      * @throws Firal_Model_Mapper_RuntimeException If there is no adapter defined
      *
      * @return void
      */
-    final public function __construct(Zend_Db_Adapter_Abstract $adapter = null)
+    final public function __construct(Zend_Db_Adapter_Abstract $readAdapter = null, Zend_Db_Adapter_Abstract $writeAdapter = null)
     {
-        if (null === $adapter) {
-            if (null === ($adapter = self::getDefaultAdapter())) {
+        if (null === $readAdapter) {
+            if (null === ($readAdapter = self::getDefaultAdapter())) {
                 throw new Firal_Model_Mapper_RuntimeException('There was no adapter defined');
             }
         }
 
-        $this->_adapter = $adapter;
+        if (null === $writeAdapter) {
+            $writeAdapter = $readAdapter;
+        }
+
+        $this->_readAdapter = $readAdapter;
+        $this->_writeAdapter = $writeAdapter;
 
         $this->_init();
     }
@@ -87,13 +100,23 @@ abstract class Firal_Model_Mapper_MapperAbstract
     {}
 
     /**
-     * Get the database adapter
+     * Get the database adapter for read queries
      *
      * @return Zend_Db_Adapter_Abstract
      */
-    public function getAdapter()
+    public function getReadAdapter()
     {
-        return $this->_adapter;
+        return $this->_readAdapter;
+    }
+
+    /**
+     * Get the database adapter for write queries
+     *
+     * @return Zend_Db_Adapter_Abstract
+     */
+    public function getWriteAdapter()
+    {
+        return $this->_writeAdapter;
     }
 
     /**

@@ -48,7 +48,7 @@ class Default_Model_Mapper_Config extends Firal_Model_Mapper_MapperAbstract impl
      */
     public function fetchAll()
     {
-        $db = $this->getAdapter();
+        $db = $this->getReadAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName());
@@ -73,7 +73,7 @@ class Default_Model_Mapper_Config extends Firal_Model_Mapper_MapperAbstract impl
      */
     public function fetchByName($name)
     {
-        $db = $this->getAdapter();
+        $db = $this->getReadAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName())

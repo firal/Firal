@@ -62,7 +62,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     public function fetchById($id)
     {
-        $db = $this->getAdapter();
+        $db = $this->getReadAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName())
@@ -86,7 +86,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     public function fetchByName($name)
     {
-        $db = $this->getAdapter();
+        $db = $this->getReadAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName())
@@ -105,12 +105,12 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      * Check if a user exists by its name
      *
      * @param string $name
-     * 
+     *
      * @return bool
      */
     public function hasUser($name)
     {
-        $db = $this->getAdapter();
+        $db = $this->getReadAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName(), 'name')
@@ -183,9 +183,9 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
             'email'    => $user->getEmail(),
             'role'     => $user->getRole()
         );
-        $this->getAdapter()->insert($this->_name, $data);
+        $this->getWriteAdapter()->insert($this->_name, $data);
 
-        return $this->getAdapter()->lastInsertId($this->_name, 'id');
+        return $this->getWriteAdapter()->lastInsertId($this->_name, 'id');
     }
 
     /**
@@ -203,10 +203,10 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
             'email'    => $user->getEmail(),
             'role'     => $user->getRole()
         );
-        return $this->getAdapter()->update(
+        return $this->getWriteAdapter()->update(
             $this->_name,
             $data,
-            $this->getAdapter()->quoteInto('id=?', $user->getId())
+            $this->getWriteAdapter()->quoteInto('id=?', $user->getId())
         );
     }
 
