@@ -22,7 +22,7 @@ Please, report any bugs or feature requests in the [Issue Tracker][ISSUETRACKER]
 
 IRC Channel
 -----------
-We also got our own IRC channel on freenode. Feel free to drop by in #firal on
+We also have our own IRC channel on freenode. Feel free to drop by in #firal on
 irc.freenode.net
 
 [HOMEPAGE]: http://firal.org/
