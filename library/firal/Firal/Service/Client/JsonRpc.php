@@ -31,6 +31,8 @@
 class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterface
 {
 
+    const JSON_RPC_VERSION = '2.0';
+
     /**
      * The API url
      *
@@ -48,10 +50,16 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
     /**
      * Service map
      *
-     * @var unkown
-     * @todo determine the type of this variable
+     * @var array
      */
     protected $_serviceMap;
+
+    /**
+     * Request id
+     *
+     * @var int
+     */
+    protected $_id = 0;
 
 
     /**
@@ -118,5 +126,17 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
      */
     public function call($name, array $arguments)
     {
+        $request = array(
+            'jsonrpc' => self::JSON_RPC_VERSION,
+            'method'  => $name,
+            'params'  => $arguments,
+            'id'      => ++$this->_id
+        );
+
+        $client->setRawData(Zend_Json::encode($request), 'application/json');
+
+        $response = Zend_Json::decode($this->_client->request(Zend_Http_Client::POST);
+
+        return $response['result'];
     }
 }
