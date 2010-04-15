@@ -14,48 +14,30 @@
  *
  * @category   Firal
  * @package    Firal_Service
+ * @subpackage Client
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Abstract server service
+ * Abstract client service
  *
  * @category   Firal
  * @package    Firal_Service
+ * @subpackage Client
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-abstract class Firal_Service_ServerAbstract
+interface Firal_Service_Client_ClientInterface
 {
 
     /**
-     * The server object
+     * Magic call method must be enforced by this interface
      *
-     * @var Firal_Service_Server_ServerInterface
+     * @param string $name
+     * @param array $arguments
+     *
+     * @return mixed
      */
-    protected $_server;
-
-
-    /**
-     * Constructor
-     *
-     * @param Firal_Service_Server_ServerInterface $server
-     *
-     * @return void
-     */
-    public function __construct(Firal_Service_Server_ServerInterface $server)
-    {
-        $this->_server = $server;
-    }
-
-    /**
-     * Get the server object
-     *
-     * @return Firal_Service_Server_ServerInterface
-     */
-    public function getServer()
-    {
-        return $this->_server;
-    }
+    public function __call($name, array $arguments);
 }
