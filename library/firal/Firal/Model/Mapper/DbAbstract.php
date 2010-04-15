@@ -20,7 +20,7 @@
  */
 
 /**
- * Abstract model mapper
+ * Abstract db model mapper
  *
  * @category   Firal
  * @package    Firal_Model
@@ -28,7 +28,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-abstract class Firal_Model_Mapper_MapperAbstract
+abstract class Firal_Model_Mapper_DbAbstract
 {
 
     /**
