@@ -137,6 +137,22 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
 
         $response = Zend_Json::decode($this->_client->request(Zend_Http_Client::POST);
 
+        if (isset($response['error'])) {
+            switch ($response['error']['code']) {
+                case -32700:
+                case -32603:
+                    throw new Firal_Service_Client_RuntimeException($response['error']['message'], $response['error']['code']);
+                    break;
+                case -32600:
+                case -32601:
+                    throw new Firal_Service_Client_BadMethodCallException($response['error']['message'], $response['error']['code']);
+                    break;
+                case -32602:
+                    throw new Firal_Service_Client_InvalidArgumentException($response['error']['message'], $response['error']['code']);
+                    break;
+            }
+        }
+
         return $response['result'];
     }
 }
