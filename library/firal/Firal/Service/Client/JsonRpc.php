@@ -48,13 +48,6 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
     protected $_client;
 
     /**
-     * Service map
-     *
-     * @var array
-     */
-    protected $_serviceMap;
-
-    /**
      * Request id
      *
      * @var int
@@ -83,8 +76,6 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
 
         $this->_url    = $url;
         $this->_client = $client;
-
-        $this->_serviceMap = Zend_Json::decode($client->request());
     }
 
     /**
