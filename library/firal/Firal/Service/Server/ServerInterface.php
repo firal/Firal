@@ -14,7 +14,7 @@
  *
  * @category   Firal
  * @package    Firal_Service
- * @subpackage Client
+ * @subpackage Server
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
@@ -24,20 +24,17 @@
  *
  * @category   Firal
  * @package    Firal_Service
- * @subpackage Client
+ * @subpackage Server
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Firal_Service_Client_ClientInterface
+interface Firal_Service_Server_ServerInterface
 {
 
     /**
-     * Magic call method must be enforced by this interface
+     * Handle the request to the server
      *
-     * @param string $name
-     * @param array $arguments
-     *
-     * @return mixed
+     * @return void
      */
-    public function __call($name, array $arguments);
+    public function handle();
 }
