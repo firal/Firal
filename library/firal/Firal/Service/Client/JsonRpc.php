@@ -28,7 +28,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Firal_Service_Client_Json implements Firal_Service_Client_ClientInterface
+class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterface
 {
 
     /**
