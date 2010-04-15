@@ -39,6 +39,13 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
     protected $_url;
 
     /**
+     * HTTP client
+     *
+     * @var Zend_Http_Client
+     */
+    protected $_client;
+
+    /**
      * Service map
      *
      * @var unkown
@@ -51,16 +58,29 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
      * Constructor
      *
      * @param string $url
+     * @param Zend_Http_Client $client
      *
      * @return void
      */
-    public function __construct($url)
+    public function __construct($url, Zend_Http_Client $client = null)
     {
-        $this->_url = $url;
+        if ($url instanceof Zend_Http_Client) {
+            $client = $url;
+            $url    = $client->getUri();
+        } elseif (null === $client) {
+            $client = new Zend_Http_Client($url);
+        } else {
+            $client->setUri($url);
+        }
+
+        $this->_url    = $url;
+        $this->_client = $client;
+
+        $this->_serviceMap = Zend_Json::decode($client->request());
     }
 
     /**
-     * Magic call method must be enforced by this interface
+     * Magic call method to call an RPC method
      *
      * @param string $name
      * @param array $arguments
@@ -68,6 +88,35 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
      * @return mixed
      */
     public function __call($name, array $arguments)
+    {
+        return $this->call($name, $arguments);
+    }
+
+    /**
+     * Magic get method to get a namespace
+     *
+     * @param string $name
+     *
+     * @return Firal_Service_Client_Namespace
+     */
+    public function __get($name)
+    {
+        return new Firal_Service_Client_Namespace($this, $name);
+    }
+
+    /**
+     * Call an RPC method
+     *
+     * This method's name argument must be a string like:
+     *
+     * <namespace>.<namespace>.<method>
+     *
+     * @param string $name
+     * @param array $arguments
+     *
+     * @return mixed
+     */
+    public function call($name, array $arguments)
     {
     }
 }

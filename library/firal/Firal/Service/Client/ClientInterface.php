@@ -60,7 +60,7 @@ interface Firal_Service_Client_ClientInterface
     public function __get($name);
 
     /**
-     * Call method
+     * Call an RPC method
      *
      * This method's name argument must be a string like:
      *
