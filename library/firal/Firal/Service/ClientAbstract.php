@@ -30,9 +30,9 @@ abstract class Firal_Service_ClientAbstract
 {
 
     /**
-     * The client object
+     * The client namespace
      *
-     * @var Firal_Service_Client_ClientInterface
+     * @var Firal_Service_Client_Namespace
      */
     protected $_client;
 
@@ -40,11 +40,11 @@ abstract class Firal_Service_ClientAbstract
     /**
      * Constructor
      *
-     * @param Firal_Service_Client_ClientInterface $client
+     * @param Firal_Service_Client_Namespace $client
      *
      * @return void
      */
-    public function __construct(Firal_Service_Client_ClientInterface $client)
+    public function __construct(Firal_Service_Client_Namespace $client)
     {
         $this->_client = $client;
     }
@@ -52,7 +52,7 @@ abstract class Firal_Service_ClientAbstract
     /**
      * Get the client object
      *
-     * @return Firal_Service_Client_ClientInterface
+     * @return Firal_Service_Client_Namespace
      */
     public function getClient()
     {
