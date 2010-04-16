@@ -115,18 +115,18 @@ class Firal_Service_Client_JsonRpc implements Firal_Service_Client_ClientInterfa
      *
      * @return mixed
      */
-    public function call($name, array $arguments)
+    public function call($method, $params = array())
     {
         $request = array(
             'jsonrpc' => self::JSON_RPC_VERSION,
-            'method'  => $name,
-            'params'  => $arguments,
+            'method'  => $method,
+            'params'  => $params,
             'id'      => ++$this->_id
         );
 
         $client->setRawData(Zend_Json::encode($request), 'application/json');
 
-        $response = Zend_Json::decode($this->_client->request(Zend_Http_Client::POST);
+        $response = Zend_Json::decode($this->_client->request(Zend_Http_Client::POST));
 
         if (isset($response['error'])) {
             switch ($response['error']['code']) {

@@ -28,7 +28,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Model_Mapper_Page extends Firal_Model_Mapper_MapperAbstract implements Pages_Model_Mapper_PageInterface
+class Pages_Model_Mapper_Page extends Firal_Model_Mapper_DbAbstract implements Pages_Model_Mapper_PageInterface
 {
 
     /**

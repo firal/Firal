@@ -28,7 +28,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implements Default_Model_Mapper_UserInterface
+class Default_Model_Mapper_User extends Firal_Model_Mapper_DbAbstract implements Default_Model_Mapper_UserInterface
 {
 
     /**
@@ -62,7 +62,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     public function fetchById($id)
     {
-        $db = $this->getReadAdapter();
+        $db = $this->getAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName())
@@ -86,7 +86,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     public function fetchByName($name)
     {
-        $db = $this->getReadAdapter();
+        $db = $this->getAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName())
@@ -110,7 +110,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      */
     public function hasUser($name)
     {
-        $db = $this->getReadAdapter();
+        $db = $this->getAdapter();
 
         $sql = $db->select()
                   ->from($this->getTableName(), 'name')
@@ -183,9 +183,9 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
             'email'    => $user->getEmail(),
             'role'     => $user->getRole()
         );
-        $this->getWriteAdapter()->insert($this->_name, $data);
+        $this->getAdapter()->insert($this->_name, $data);
 
-        return $this->getWriteAdapter()->lastInsertId($this->_name, 'id');
+        return $this->getAdapter()->lastInsertId($this->_name, 'id');
     }
 
     /**
@@ -203,10 +203,10 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
             'email'    => $user->getEmail(),
             'role'     => $user->getRole()
         );
-        return $this->getWriteAdapter()->update(
+        return $this->getAdapter()->update(
             $this->_name,
             $data,
-            $this->getWriteAdapter()->quoteInto('id=?', $user->getId())
+            $this->getAdapter()->quoteInto('id=?', $user->getId())
         );
     }
 

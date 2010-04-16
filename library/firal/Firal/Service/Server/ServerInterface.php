@@ -28,13 +28,6 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-interface Firal_Service_Server_ServerInterface
+interface Firal_Service_Server_ServerInterface extends Zend_Server_Interface
 {
-
-    /**
-     * Handle the request to the server
-     *
-     * @return void
-     */
-    public function handle();
 }

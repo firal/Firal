@@ -66,10 +66,10 @@ interface Firal_Service_Client_ClientInterface
      *
      * <namespace>.<namespace>.<method>
      *
-     * @param string $name
-     * @param array $arguments
+     * @param string $method
+     * @param array $params
      *
      * @return mixed
      */
-    public function call($name, array $arguments);
+    public function call($method, $params = array());
 }
