@@ -31,20 +31,6 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
 {
 
     /**
-     * Get the JSON version of the user service
-     *
-     * @return Default_Service_UserJson
-     */
-    public function getUserJsonService()
-    {
-        if (!isset($this->_storage['userJsonService'])) {
-            $this->_storage['userJsonService'] = new Default_Service_UserJson($this->getUserService());
-        }
-
-        return $this->_storage['userJsonService'];
-    }
-
-    /**
      * Get the user service
      *
      * @return Default_Service_User
@@ -73,20 +59,6 @@ class Default_DiContainer extends Firal_Di_Container_ContainerAbstract
         }
 
         return $this->_storage['userMapper'];
-    }
-
-    /**
-     * Get the config JSON service
-     *
-     * @return Default_Service_ConfigJson
-     */
-    public function getConfigJsonService()
-    {
-        if (!isset($this->_storage['configJsonService'])) {
-            $this->_storage['configJsonService'] = new Default_Service_ConfigJson($this->getConfigService());
-        }
-
-        return $this->_storage['configJsonService'];
     }
 
     /**

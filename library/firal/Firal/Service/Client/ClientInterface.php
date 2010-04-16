@@ -13,63 +13,63 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Firal_Service
+ * @subpackage Client
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Page service class
+ * Abstract client service
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Firal_Service
+ * @subpackage Client
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page implements Pages_Service_PageInterface
+interface Firal_Service_Client_ClientInterface
 {
 
     /**
-     * Datamapper used for articles
-     *
-     * @var Pages_Model_Mapper_PageInterface
-     */
-    protected $_mapper;
-
-    
-    /**
      * Constructor
      *
-     * @param Pages_Model_Mapper_PageInterface $mapper
+     * @param string $url
      *
      * @return void
      */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
-    {
-        $this->_mapper = $mapper;
-    }
+    public function __construct($url);
 
     /**
-     * Setup default privileges
+     * Magic call method to call an RPC method
      *
-     * Empty for now, there should be some setup code later
+     * @param string $name
+     * @param array $arguments
      *
-     * @return void 
+     * @return mixed
      */
-    protected function _setupPrivileges()
-    {
-
-    }
+    public function __call($name, array $arguments);
 
     /**
-     * Get one page by its name
+     * Magic get method to get a namespace
      *
      * @param string $name
      *
-     * @return Pages_Model_Page
+     * @return Firal_Service_Client_Namespace
      */
-    public function getPage($name)
-    {
-        return $this->_mapper->fetchByName($name);
-    }
+    public function __get($name);
+
+    /**
+     * Call an RPC method
+     *
+     * This method's name argument must be a string like:
+     *
+     * <namespace>.<namespace>.<method>
+     *
+     * @param string $method
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public function call($method, $params = array());
 }

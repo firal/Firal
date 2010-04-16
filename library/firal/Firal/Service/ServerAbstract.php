@@ -13,51 +13,49 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Default_Services
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Config service JSON decorator
+ * Abstract server service
  *
  * @category   Firal
- * @package    Default_Services
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_ConfigJson implements Default_Service_ConfigInterface
+abstract class Firal_Service_ServerAbstract
 {
 
     /**
-     * The decorated service
+     * The server object
      *
-     * @var Default_Service_ConfigInterface
+     * @var Firal_Service_Server_ServerInterface
      */
-    protected $_service;
+    protected $_server;
 
 
     /**
      * Constructor
      *
-     * @param Default_Service_ConfigInterface $service
+     * @param Firal_Service_Server_ServerInterface $server
      *
      * @return void
      */
-    public function __construct(Default_Service_ConfigInterface $service)
+    public function __construct(Firal_Service_Server_ServerInterface $server)
     {
-        $this->_service = $service;
+        $this->_server = $server;
     }
 
     /**
-     * Get the configuration
+     * Get the server object
      *
-     * An array is returned to maintain a higher level of ompatability with JSON
-     *
-     * @return array
+     * @return Firal_Service_Server_ServerInterface
      */
-    public function getConfig()
+    public function getServer()
     {
-        return $this->_service->getConfig()->toArray();
+        return $this->_server;
     }
 }

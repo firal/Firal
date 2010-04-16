@@ -26,7 +26,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_User extends Firal_Service_ServiceAbstract implements Default_Service_UserInterface
+class Default_Service_User implements Default_Service_UserInterface
 {
 
     /**
@@ -61,15 +61,6 @@ class Default_Service_User extends Firal_Service_ServiceAbstract implements Defa
     public function __construct(Default_Model_Mapper_UserInterface $mapper)
     {
         $this->_mapper = $mapper;
-    }
-
-    /**
-     * Setup default privileges ** Empty for now, there should be some setup code later
-     *
-     * @return void */
-    protected function _setupPrivileges()
-    {
-
     }
 
     /**

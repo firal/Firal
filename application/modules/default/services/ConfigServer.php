@@ -13,63 +13,50 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Page service class
+ * Config service class
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page implements Pages_Service_PageInterface
+class Default_Service_ConfigServer extends Firal_Service_ServerAbstract implements Default_Service_ConfigInterface
 {
 
     /**
-     * Datamapper used for articles
+     * Service to decorate to server
      *
-     * @var Pages_Model_Mapper_PageInterface
+     * @var Default_Service_ConfigInterface
      */
-    protected $_mapper;
+    protected $_service;
 
-    
+
     /**
      * Constructor
      *
-     * @param Pages_Model_Mapper_PageInterface $mapper
+     * @param Default_Service_ConfigInterface $service
      *
      * @return void
      */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
+    public function __construct(Default_Service_ConfigInterface $service)
     {
-        $this->_mapper = $mapper;
+        $this->_service = $service;
     }
 
-    /**
-     * Setup default privileges
-     *
-     * Empty for now, there should be some setup code later
-     *
-     * @return void 
-     */
-    protected function _setupPrivileges()
-    {
-
-    }
 
     /**
-     * Get one page by its name
+     * Get the config object
      *
-     * @param string $name
-     *
-     * @return Pages_Model_Page
+     * @return Zend_Config
      */
-    public function getPage($name)
+    public function getConfig()
     {
-        return $this->_mapper->fetchByName($name);
+        return $this->_service->getConfig()->toArray();
     }
 }

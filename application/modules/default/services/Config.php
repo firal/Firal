@@ -26,7 +26,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_Config extends Firal_Service_ServiceAbstract implements Default_Service_ConfigInterface
+class Default_Service_Config implements Default_Service_ConfigInterface
 {
 
     /**
@@ -88,17 +88,4 @@ class Default_Service_Config extends Firal_Service_ServiceAbstract implements De
 
         $this->_config = new Zend_Config($config);
     }
-
-    /**
-     * Setup default privileges
-     *
-     * Empty for now, there should be some setup code later
-     *
-     * @return void
-     */
-    protected function _setupPrivileges()
-    {
-
-    }
-
 }

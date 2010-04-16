@@ -13,63 +13,49 @@
  * to firal-dev@googlegroups.com so we can send you a copy immediately.
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
 
 /**
- * Page service class
+ * Abstract client service
  *
  * @category   Firal
- * @package    Pages_Services
+ * @package    Firal_Service
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Pages_Service_Page implements Pages_Service_PageInterface
+abstract class Firal_Service_ClientAbstract
 {
 
     /**
-     * Datamapper used for articles
+     * The client namespace
      *
-     * @var Pages_Model_Mapper_PageInterface
+     * @var Firal_Service_Client_Namespace
      */
-    protected $_mapper;
+    protected $_client;
 
-    
+
     /**
      * Constructor
      *
-     * @param Pages_Model_Mapper_PageInterface $mapper
+     * @param Firal_Service_Client_Namespace $client
      *
      * @return void
      */
-    public function __construct(Pages_Model_Mapper_PageInterface $mapper)
+    public function __construct(Firal_Service_Client_Namespace $client)
     {
-        $this->_mapper = $mapper;
+        $this->_client = $client;
     }
 
     /**
-     * Setup default privileges
+     * Get the client object
      *
-     * Empty for now, there should be some setup code later
-     *
-     * @return void 
+     * @return Firal_Service_Client_Namespace
      */
-    protected function _setupPrivileges()
+    public function getClient()
     {
-
-    }
-
-    /**
-     * Get one page by its name
-     *
-     * @param string $name
-     *
-     * @return Pages_Model_Page
-     */
-    public function getPage($name)
-    {
-        return $this->_mapper->fetchByName($name);
+        return $this->_client;
     }
 }

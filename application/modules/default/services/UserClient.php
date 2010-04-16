@@ -19,34 +19,48 @@
  */
 
 /**
- * Config service interface
+ * User client service class
  *
  * @category   Firal
  * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_UserJson implements Default_Service_UserInterface
+class Default_Service_UserClient implements Default_Service_UserInterface
 {
 
     /**
-     * The decorated service
+     * RPC client
      *
-     * @var Default_Service_UserInterface
+     * @var Firal_Service_Client_ClientInterface
      */
-    protected $_service;
+    protected $_client;
+
+    /**
+     * Login form instance
+     *
+     * @var Default_Form_UserLogin
+     */
+    protected $_loginForm;
+
+    /**
+     * Register form instance
+     *
+     * @var Default_Form_UserRegister
+     */
+    protected $_registerForm;
 
 
     /**
      * Constructor
      *
-     * @param Default_Service_UserInterface $service
+     * @param Firal_Service_Client_ClientInterface $client
      *
      * @return void
      */
-    public function __construct(Default_Service_UserInterface $service)
+    public function __construct(Firal_Service_Client_ClientInterface $client)
     {
-        $this->_service = $service;
+        $this->_client = $client;
     }
 
     /**
@@ -58,7 +72,13 @@ class Default_Service_UserJson implements Default_Service_UserInterface
      */
     public function login(array $data)
     {
-        return $this->_service->login($data);
+        $form = $this->getLoginForm();
+
+        if (!$form->isValid($data)) {
+            return false;
+        }
+
+        return $this->_client->login($form->getValues());
     }
 
     /**
@@ -70,7 +90,13 @@ class Default_Service_UserJson implements Default_Service_UserInterface
      */
     public function register(array $data)
     {
-        return $this->_service->register($data);
+        $form = $this->getRegisterForm();
+
+        if (!$form->isValid($data)) {
+            return false;
+        }
+
+        return $this->_client->register($form->getValues());
     }
 
     /**
@@ -80,34 +106,34 @@ class Default_Service_UserJson implements Default_Service_UserInterface
      */
     public function logout()
     {
-        return $this->_service->logout();
+        Zend_Auth::getInstance()->clearIdentity();
     }
 
     /**
      * Get the login form
      *
-     * This returns a rendered version of the form in an array element
-     *
-     * @return string
+     * @return Default_Form_Login
      */
     public function getLoginForm()
     {
-        return array(
-            'form' => $this->_service->getLoginForm()->__toString()
-        );
+        if (null === $this->_loginForm) {
+            $this->_loginForm = new Default_Form_UserLogin();
+        }
+
+        return $this->_loginForm;
     }
 
     /**
      * Get the register form
      *
-     * This returns a rendered version of the form in an array element
-     *
      * @return Default_Form_UserRegister
      */
     public function getRegisterForm()
     {
-        return array(
-            'form' => $this->_service->getRegisterForm()->__toString()
-        );
+        if (null === $this->_registerForm) {
+            $this->_registerForm = new Default_Form_UserRegister();
+        }
+
+        return $this->_registerForm;
     }
 }

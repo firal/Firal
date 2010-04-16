@@ -28,7 +28,7 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implements Default_Model_Mapper_UserInterface
+class Default_Model_Mapper_User extends Firal_Model_Mapper_DbAbstract implements Default_Model_Mapper_UserInterface
 {
 
     /**
@@ -105,7 +105,7 @@ class Default_Model_Mapper_User extends Firal_Model_Mapper_MapperAbstract implem
      * Check if a user exists by its name
      *
      * @param string $name
-     * 
+     *
      * @return bool
      */
     public function hasUser($name)
