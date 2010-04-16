@@ -19,22 +19,22 @@
  */
 
 /**
- * User service class
+ * User client service class
  *
  * @category   Firal
  * @package    Default_Services
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_User implements Default_Service_UserInterface
+class Default_Service_UserClient implements Default_Service_UserInterface
 {
 
     /**
-     * Datamapper used for articles
+     * RPC client
      *
-     * @var Default_Model_Mapper_UserInterface
+     * @var Firal_Service_Client_ClientInterface
      */
-    protected $_mapper;
+    protected $_client;
 
     /**
      * Login form instance
@@ -54,13 +54,13 @@ class Default_Service_User implements Default_Service_UserInterface
     /**
      * Constructor
      *
-     * @param Default_Model_Mapper_UserInterface $mapper
+     * @param Firal_Service_Client_ClientInterface $client
      *
      * @return void
      */
-    public function __construct(Default_Model_Mapper_UserInterface $mapper)
+    public function __construct(Firal_Service_Client_ClientInterface $client)
     {
-        $this->_mapper = $mapper;
+        $this->_client = $client;
     }
 
     /**
@@ -78,29 +78,7 @@ class Default_Service_User implements Default_Service_UserInterface
             return false;
         }
 
-        $this->_mapper->setCredentials($form->getValue('username'), $form->getValue('password'));
-
-        $auth = Zend_Auth::getInstance();
-
-        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($form, 'default.user.login'));
-
-        $result = $auth->authenticate($this->_mapper);
-
-        // invalid result
-        if (!$result->isValid()) {
-            switch ($result->getCode()) {
-                case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
-                    $form->getElement('username')->setErrors(array("There is no '{$form->getValue('username')}' user."));
-                    break;
-                case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
-                    $form->getElement('password')->setErrors(array("Wrong password."));
-                    break;
-            }
-            $auth->getStorage()->write($result->getIdentity());
-            return false;
-        }
-
-        return true;
+        return $this->_client->login($form->getValues());
     }
 
     /**
@@ -118,28 +96,7 @@ class Default_Service_User implements Default_Service_UserInterface
             return false;
         }
 
-        // create a user object
-        $data = $form->getValues();
-
-        // check if the user exists
-        if ($this->_mapper->hasUser($data['username'])) {
-            $form->getElement('username')->setErrors(array("User with name '{$form->getValue('username')}' already exists."));
-            return false;
-        }
-
-        $user = new Default_Model_User();
-
-        $user->setUsername($data['username']);
-        $user->setPassword($data['password']);
-        $user->setEmail($data['email']);
-        $user->setRole('user');
-
-        Firal_Plugin::getDefaultDispatcher()->trigger(new Firal_Event($user, 'default.user.register'));
-
-        // insert the new user
-        $this->_mapper->insert($user);
-
-        return true;
+        return $this->_client->register($form->getValues());
     }
 
     /**
