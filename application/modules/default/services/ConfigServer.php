@@ -26,34 +26,27 @@
  * @copyright  Copyright (c) 2009-2010 Firal (http://firal.org/)
  * @license    http://firal.org/licenses/new-bsd    New BSD License
  */
-class Default_Service_Config implements Default_Service_ConfigInterface
+class Default_Service_ConfigServer extends Firal_Service_ServerAbstract implements Default_Service_ConfigInterface
 {
 
     /**
-     * Datamapper used for articles
+     * Service to decorate to server
      *
-     * @var Default_Model_Mapper_ConfigInterface
+     * @var Default_Service_ConfigInterface
      */
-    protected $_mapper;
-
-    /**
-     * Zend_Config object
-     *
-     * @var Zend_Config
-     */
-    protected $_config;
+    protected $_service;
 
 
     /**
      * Constructor
      *
-     * @param Default_Model_Mapper_ConfigInterface $mapper
+     * @param Default_Service_ConfigInterface $service
      *
      * @return void
      */
-    public function __construct(Default_Model_Mapper_ConfigInterface $mapper)
+    public function __construct(Default_Service_ConfigInterface $service)
     {
-        $this->_mapper = $mapper;
+        $this->_service = $service;
     }
 
 
@@ -64,28 +57,6 @@ class Default_Service_Config implements Default_Service_ConfigInterface
      */
     public function getConfig()
     {
-        if (null === $this->_config) {
-            $this->_loadConfig();
-        }
-
-        return $this->_config;
-    }
-
-    /**
-     * Load the configuration
-     *
-     * @return void
-     */
-    protected function _loadConfig()
-    {
-        $rowset = $this->_mapper->fetchAll();
-
-        $config = array();
-
-        foreach ($rowset as $row) {
-            $config[$row->name] = $row->value;
-        }
-
-        $this->_config = new Zend_Config($config);
+        return $this->_service->getConfig()->toArray();
     }
 }
